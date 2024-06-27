@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookings',
 #    'debug_toolbar',
+    'clear_cache',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu114.gitpod.io',
+]
