@@ -3,6 +3,7 @@
 
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 from .models import Patient
 from .models import Appointment  # Adjusted import statement to import Appointment model
 
@@ -23,3 +24,8 @@ class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = ['phone', 'address']
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
