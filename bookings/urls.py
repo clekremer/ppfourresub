@@ -12,4 +12,5 @@ urlpatterns = [
     #path('doctors/', views.doctor_list, name='doctor_list'),
     path('register_patient/', views.register_patient, name='register_patient'),
     path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
 ]

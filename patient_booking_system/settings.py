@@ -139,3 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu114.gitpod.io',
 ]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'patient_list'
+LOGOUT_REDIRECT_URL = 'login'

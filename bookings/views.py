@@ -9,6 +9,10 @@ from .models import Patient
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+
+
 
 def book_appointment(request):
     if request.method == 'POST':
@@ -42,6 +46,7 @@ def register_patient(request):
         patient_form = PatientForm()
     return render(request, 'bookings/register_patient.html', {'user_form': user_form, 'patient_form': patient_form})
 
+@login_required
 def patient_list(request):
     patients = Patient.objects.all()
     return render(request, 'bookings/patient_list.html', {'patients': patients})
@@ -70,3 +75,12 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'bookings/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect('login')
+
+
+from django.contrib.auth.decorators import login_required
+
