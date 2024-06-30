@@ -5,9 +5,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Patient(models.Model):
+    SEX_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15)
     address = models.CharField(max_length=255)
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES)
 
     def __str__(self):
         return self.user.username
