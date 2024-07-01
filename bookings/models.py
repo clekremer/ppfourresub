@@ -35,7 +35,4 @@ class Appointment(models.Model):
     approved = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.patient.user.username} - {self.doctor.user.username} on {self.date} at {self.time}'
-
-
-
+        return f"Appointment for {self.patient.user.username} with Dr. {self.doctor.user.username} on {self.date} at {self.time}"

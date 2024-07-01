@@ -4,7 +4,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Patient
+from .models import Patient, Doctor
 from .models import Appointment  # Adjusted import statement to import Appointment model
 
 class AppointmentForm(forms.ModelForm):
@@ -24,6 +24,11 @@ class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = ['phone', 'address']
+
+class DoctorRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Doctor
+        fields = ['user', 'specialty'] 
 
 
 class CustomAuthenticationForm(AuthenticationForm):

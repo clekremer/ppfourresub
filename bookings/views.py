@@ -13,6 +13,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 
+
 def index(request):
     return render(request, 'index.html')
 
@@ -43,7 +44,7 @@ def register_patient(request):
             patient = patient_form.save(commit=False)
             patient.user = user
             patient.save()
-            return redirect('patient_list')
+            return redirect('patient_detail')
     else:
         user_form = UserForm()
         patient_form = PatientForm()
@@ -53,7 +54,8 @@ def register_patient(request):
 @login_required
 def patient_detail(request):
     patient = Patient.objects.get(user=request.user)  # Retrieve the Patient instance for the logged-in user
-    return render(request, 'bookings/patient_detail.html', {'patient': patient})
+    appointments = Appointment.objects.filter(patient=patient)
+    return render(request, 'bookings/patient_detail.html', {'patient': patient, 'appointments': appointments})
 
 
 @login_required
@@ -72,7 +74,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect('patient_list')
+                return redirect('patient_detail')
             else:
                 messages.error(request, "Invalid username or password.")
         else:

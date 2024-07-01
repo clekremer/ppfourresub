@@ -26,5 +26,23 @@
     <p><strong>Phone:</strong> {{ patient.phone }}</p>
     <p><strong>Address:</strong> {{ patient.address }}</p>
     <p><strong>Sex:</strong> {{ patient.get_sex_display }}</p>
+    <h2>Booked Appointments</h2>
+    <ul>
+        {% for appointment in appointments %}
+            <li>
+                <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
+                <strong>Date:</strong> {{ appointment.date }}<br>
+                <strong>Time:</strong> {{ appointment.time }}<br>
+                <strong>Reason:</strong> {{ appointment.reason }}<br>
+                {% if appointment.approved %}
+                    <strong>Status:</strong> Approved<br>
+                {% else %}
+                    <strong>Status:</strong> Pending<br>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No appointments booked.</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
