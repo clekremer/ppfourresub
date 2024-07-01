@@ -1,16 +1,19 @@
 # bookings/views.py
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import AppointmentForm
 from .models import Appointment
 from django.contrib.auth.models import User
-from .forms import UserForm, PatientForm
+from .forms import UserForm, PatientForm, DoctorRegistrationForm
 from .models import Patient
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 
@@ -31,6 +34,40 @@ def book_appointment(request):
 def appointment_list(request):
     appointments = Appointment.objects.all()
     return render(request, 'bookings/appointment_list.html', {'appointments': appointments})
+
+
+
+@staff_member_required
+def register_doctor(request):
+    if request.method == 'POST':
+        form = DoctorRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')  # Redirect to home or another view
+    else:
+        form = DoctorRegistrationForm()
+    
+    return render(request, 'register_doctor.html', {'form': form})
+
+
+@login_required
+def doctor_dashboard(request):
+    try:
+        doctor = request.user.doctor
+        appointments = Appointment.objects.filter(doctor=doctor)
+    except ObjectDoesNotExist:
+        doctor = None
+        appointments = []
+
+    if request.method == 'POST':
+        appointment_id = request.POST.get('appointment_id')
+        approve_status = request.POST.get('approve_status')
+        appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
+        appointment.approved = approve_status == 'approve'
+        appointment.save()
+    
+    return render(request, 'doctor_dashboard.html', {'appointments': appointments, 'doctor': doctor})
+
 
 
 def register_patient(request):
