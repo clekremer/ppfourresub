@@ -13,6 +13,9 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 
+def index(request):
+    return render(request, 'index.html')
+
 
 def book_appointment(request):
     if request.method == 'POST':
@@ -46,16 +49,18 @@ def register_patient(request):
         patient_form = PatientForm()
     return render(request, 'bookings/register_patient.html', {'user_form': user_form, 'patient_form': patient_form})
 
+
+@login_required
+def patient_detail(request):
+    patient = Patient.objects.get(user=request.user)  # Retrieve the Patient instance for the logged-in user
+    return render(request, 'bookings/patient_detail.html', {'patient': patient})
+
+
 @login_required
 def patient_list(request):
     patients = Patient.objects.all()
     return render(request, 'bookings/patient_list.html', {'patients': patients})
 
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib import messages
 
 def login_view(request):
     if request.method == 'POST':

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register Patient</title>
+    <title>Patient Detail</title>
+    {% csrf_token %}
 </head>
 <body>
     <header>
@@ -19,12 +20,11 @@
             </ul>
         </nav>
     </header>
-    <h1>Register Patient</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ patient_form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <h1>Patient Detail</h1>
+    <p><strong>Username:</strong> {{ patient.user.username }}</p>
+    <p><strong>Email:</strong> {{ patient.user.email }}</p>
+    <p><strong>Phone:</strong> {{ patient.phone }}</p>
+    <p><strong>Address:</strong> {{ patient.address }}</p>
+    <p><strong>Sex:</strong> {{ patient.get_sex_display }}</p>
 </body>
 </html>

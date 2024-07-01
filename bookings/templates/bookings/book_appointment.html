@@ -4,6 +4,22 @@
     <title>Book Appointment</title>
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
+                    <li><a href="{% url 'patient_detail' %}">Patient Profile</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register_patient' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
     <h1>Book Appointment</h1>
     <form method="post">
         {% csrf_token %}
