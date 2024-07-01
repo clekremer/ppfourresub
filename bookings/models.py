@@ -32,6 +32,7 @@ class Appointment(models.Model):
     date = models.DateField()
     time = models.TimeField()
     reason = models.TextField()
+    approved = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.patient.user.username} - {self.doctor.user.username} on {self.date} at {self.time}'
