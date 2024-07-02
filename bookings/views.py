@@ -1,11 +1,9 @@
-# bookings/views.py
-
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import AppointmentForm
 from .models import Appointment
 from django.contrib.auth.models import User
 from .forms import UserForm, PatientForm, DoctorRegistrationForm
-from .models import Patient
+from .models import Patient, Doctor
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -14,13 +12,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ObjectDoesNotExist
 
-
-
-
 def index(request):
     return render(request, 'index.html')
 
-
+@login_required
 def book_appointment(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
@@ -35,8 +30,6 @@ def appointment_list(request):
     appointments = Appointment.objects.all()
     return render(request, 'bookings/appointment_list.html', {'appointments': appointments})
 
-
-
 @staff_member_required
 def register_doctor(request):
     if request.method == 'POST':
@@ -46,9 +39,7 @@ def register_doctor(request):
             return redirect('index')  # Redirect to home or another view
     else:
         form = DoctorRegistrationForm()
-    
     return render(request, 'register_doctor.html', {'form': form})
-
 
 @login_required
 def doctor_dashboard(request):
@@ -68,8 +59,6 @@ def doctor_dashboard(request):
     
     return render(request, 'doctor_dashboard.html', {'appointments': appointments, 'doctor': doctor})
 
-
-
 def register_patient(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
@@ -87,19 +76,22 @@ def register_patient(request):
         patient_form = PatientForm()
     return render(request, 'bookings/register_patient.html', {'user_form': user_form, 'patient_form': patient_form})
 
-
 @login_required
 def patient_detail(request):
-    patient = Patient.objects.get(user=request.user)  # Retrieve the Patient instance for the logged-in user
-    appointments = Appointment.objects.filter(patient=patient)
-    return render(request, 'bookings/patient_detail.html', {'patient': patient, 'appointments': appointments})
-
+    try:
+        patient = Patient.objects.get(user=request.user)  # Retrieve the Patient instance for the logged-in user
+        appointments = Appointment.objects.filter(patient=patient)
+        return render(request, 'bookings/patient_detail.html', {'patient': patient, 'appointments': appointments})
+    except Patient.DoesNotExist:
+        if hasattr(request.user, 'doctor'):
+            return redirect('doctor_dashboard')
+        else:
+            return render(request, 'role_not_assigned.html')  # New template to inform no role assigned
 
 @login_required
 def patient_list(request):
     patients = Patient.objects.all()
     return render(request, 'bookings/patient_list.html', {'patients': patients})
-
 
 def login_view(request):
     if request.method == 'POST':
@@ -111,7 +103,12 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect('patient_detail')
+                if hasattr(user, 'patient'):
+                    return redirect('patient_detail')
+                elif hasattr(user, 'doctor'):
+                    return redirect('doctor_dashboard')
+                else:
+                    return render(request, 'role_not_assigned.html')
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -125,6 +122,5 @@ def logout_view(request):
     messages.info(request, "You have successfully logged out.")
     return redirect('login')
 
-
-from django.contrib.auth.decorators import login_required
+# Ensure to add the necessary imports and decorators at the top of the file
 

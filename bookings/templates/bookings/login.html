@@ -15,9 +15,11 @@
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                     <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
                     <li><a href="{% url 'patient_detail' %}">Patient Profile</a></li>
+                    <li><a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register_patient' %}">Register</a></li>
+                    <li><a href="{% url 'register_doctor' %}">Register Doctor</a></li>
                 {% endif %}
             </ul>
         </nav>
