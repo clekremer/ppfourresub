@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import AppointmentForm
-from .models import Appointment
+from .models import Appointment, Patient, Doctor
 from django.contrib.auth.models import User
 from .forms import UserForm, PatientForm, DoctorRegistrationForm
-from .models import Patient, Doctor
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -11,6 +10,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ObjectDoesNotExist
+
+
 
 def index(request):
     return render(request, 'index.html')
@@ -52,11 +53,19 @@ def doctor_dashboard(request):
 
     if request.method == 'POST':
         appointment_id = request.POST.get('appointment_id')
-        approve_status = request.POST.get('approve_status')
-        appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
-        appointment.approved = approve_status == 'approve'
-        appointment.save()
-    
+        action = request.POST.get('action')
+
+        if action == 'approve':
+            appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
+            appointment.status = 'approved'
+            appointment.save()
+            messages.success(request, 'Appointment approved successfully.')
+        elif action == 'reject':
+            appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
+            appointment.status = 'rejected'
+            appointment.save()
+            messages.warning(request, 'Appointment rejected successfully.')
+
     return render(request, 'doctor_dashboard.html', {'appointments': appointments, 'doctor': doctor})
 
 def register_patient(request):

@@ -43,8 +43,8 @@ admin.site.register(User, UserAdmin)
 
 
 class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ('patient', 'doctor', 'date', 'time', 'reason', 'approved')
-    list_filter = ('approved', 'date', 'doctor')
+    list_display = ('patient', 'doctor', 'date', 'time', 'reason', 'status')
+    list_filter = ('status', 'date', 'doctor')
     
     def get_queryset(self, request):
         qs = super().get_queryset(request)

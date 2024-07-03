@@ -34,13 +34,21 @@
                 <strong>Date:</strong> {{ appointment.date }}<br>
                 <strong>Time:</strong> {{ appointment.time }}<br>
                 <strong>Reason:</strong> {{ appointment.reason }}<br>
-                <strong>Status:</strong> {% if appointment.approved %}Approved{% else %}Pending{% endif %}<br>
+                <strong>Status:</strong> 
+                {% if appointment.status == 'approved' %}
+                    Approved
+                {% elif appointment.status == 'rejected' %}
+                    Rejected
+                {% else %}
+                    Pending
+                {% endif %}
+                <br>
                 <form method="post">
                     {% csrf_token %}
                     <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
-                    <input type="radio" id="approve" name="approve_status" value="approve">
+                    <input type="radio" id="approve" name="action" value="approve">
                     <label for="approve">Approve</label>
-                    <input type="radio" id="reject" name="approve_status" value="reject">
+                    <input type="radio" id="reject" name="action" value="reject">
                     <label for="reject">Reject</label>
                     <button type="submit">Submit</button>
                 </form>
