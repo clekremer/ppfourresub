@@ -1,11 +1,11 @@
+{% load static %}
+{% csrf_token %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Patient Detail</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Patient</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <!-- Include CSRF token here if needed -->
 </head>
 <body>
     <header>
@@ -28,45 +28,49 @@
             </ul>
         </nav>
     </header>
-    <h1>Patient Detail</h1>
-    <p><strong>Username:</strong> {{ patient.user.username }}</p>
-    <p><strong>Email:</strong> {{ patient.user.email }}</p>
-    <p><strong>Phone:</strong> {{ patient.phone }}</p>
-    <p><strong>Address:</strong> {{ patient.address }}</p>
-    <p><strong>Sex:</strong> {{ patient.get_sex_display }}</p>
-    
-    <h2>Booked Appointments</h2>
-    <ul>
-        {% if appointments %}
-            {% for appointment in appointments %}
-                <li>
-                    <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
-                    <strong>Date:</strong> {{ appointment.date }}<br>
-                    <strong>Time:</strong> {{ appointment.time }}<br>
-                    <strong>Reason:</strong> {{ appointment.reason }}<br>
-                    <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                    {% if user.patient %}
-                        {% if appointment.status == 'pending' %}
-                            <form method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
-                                <button type="submit">Cancel Appointment</button>
-                            </form>
-                        {% endif %}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        {% else %}
-            <li>No appointments booked.</li>
-        {% endif %}
-    </ul>
-    
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+
+    <div class="container">
+        <h2>Register Patient</h2>
+        <form method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend>User Information</legend>
+                <div class="form-group">
+                    <label for="id_username">Username:</label>
+                    {{ user_form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email:</label>
+                    {{ user_form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Password:</label>
+                    {{ user_form.password }}
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Patient Information</legend>
+                <div class="form-group">
+                    <label for="id_phone">Phone:</label>
+                    {{ patient_form.phone }}
+                </div>
+                <div class="form-group">
+                    <label for="id_address">Address:</label>
+                    {{ patient_form.address }}
+                </div>
+                <div class="form-group">
+                    <label for="id_sex">Sex:</label>
+                    {{ patient_form.sex }}
+                </div>
+            </fieldset>
+            
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Clinic Name</p>
+    </footer>
 </body>
 </html>

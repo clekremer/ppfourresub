@@ -18,8 +18,13 @@ def book_appointment(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('appointment_list')
+            appointment = form.save(commit=False)
+            appointment.patient = request.user.patient  # Assign the logged-in patient to the appointment
+            appointment.save()
+            messages.success(request, 'Appointment booked successfully.')
+            return redirect('patient_detail')
+        else:
+            messages.error(request, 'Failed to book appointment. Please correct the errors.')
     else:
         form = AppointmentForm()
     return render(request, 'bookings/book_appointment.html', {'form': form})

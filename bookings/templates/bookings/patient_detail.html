@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +31,15 @@
         </nav>
     </header>
     <h1>Patient Detail</h1>
+    <!-- Display messages here -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
     <p><strong>Username:</strong> {{ patient.user.username }}</p>
     <p><strong>Email:</strong> {{ patient.user.email }}</p>
     <p><strong>Phone:</strong> {{ patient.phone }}</p>

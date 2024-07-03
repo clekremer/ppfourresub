@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Global styles */
 body {
     font-family: Arial, sans-serif;
@@ -19,6 +17,7 @@ header nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    text-align: center; /* Center align the navigation */
 }
 
 header nav ul li {
@@ -42,24 +41,39 @@ main {
 
 /* Message styles */
 .messages {
+    list-style: none;
+    padding: 0;
     margin-bottom: 20px;
-    padding: 10px;
 }
 
-.messages .alert {
+.messages li {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.messages .alert,
+.messages .success,
+.messages .warning,
+.messages .alert-success,
+.messages .alert-warning,
+.messages .alert-info,
+.messages .alert-danger {
     padding: 15px;
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 4px;
 }
 
-.messages .alert-success {
+.messages .alert-success,
+.messages .success {
     background-color: #d4edda;
     border-color: #c3e6cb;
     color: #155724;
 }
 
-.messages .alert-warning {
+.messages .alert-warning,
+.messages .warning {
     background-color: #fff3cd;
     border-color: #ffeeba;
     color: #856404;
@@ -77,3 +91,73 @@ main {
     color: #721c24;
 }
 
+/* Form styles */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form fieldset {
+    border: none;
+    margin-bottom: 20px;
+}
+
+form .form-group {
+    margin-bottom: 15px;
+}
+
+form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form .form-group input,
+form .form-group select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+form .btn {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+form .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Footer styles */
+footer {
+    margin-top: auto;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+footer p {
+    margin: 0;
+}
