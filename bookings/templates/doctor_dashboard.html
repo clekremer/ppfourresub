@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <title>Doctor Dashboard</title>
 </head>
 <body>
@@ -27,6 +28,15 @@
     </header>
     
     <h1>Doctor Dashboard</h1>
+    
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
     <ul>
         {% for appointment in appointments %}
             <li>

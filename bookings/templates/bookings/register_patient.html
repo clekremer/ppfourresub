@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register Patient</title>
+    <title>Patient Detail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <!-- Include CSRF token here if needed -->
 </head>
 <body>
     <header>
@@ -9,24 +13,60 @@
             <ul>
                 <li><a href="{% url 'index' %}">Home</a></li>
                 {% if user.is_authenticated %}
+                    {% if user.patient %}
+                        <li><a href="{% url 'patient_detail' %}">Patient Dashboard</a></li>
+                        <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
+                    {% endif %}
+                    {% if user.doctor %}
+                        <li><a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a></li>
+                    {% endif %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
-                    <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
-                    <li><a href="{% url 'patient_detail' %}">Patient Profile</a></li>
-                    <li><a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register_patient' %}">Register</a></li>
-                    <li><a href="{% url 'register_doctor' %}">Register Doctor</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
-    <h1>Register Patient</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ patient_form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <h1>Patient Detail</h1>
+    <p><strong>Username:</strong> {{ patient.user.username }}</p>
+    <p><strong>Email:</strong> {{ patient.user.email }}</p>
+    <p><strong>Phone:</strong> {{ patient.phone }}</p>
+    <p><strong>Address:</strong> {{ patient.address }}</p>
+    <p><strong>Sex:</strong> {{ patient.get_sex_display }}</p>
+    
+    <h2>Booked Appointments</h2>
+    <ul>
+        {% if appointments %}
+            {% for appointment in appointments %}
+                <li>
+                    <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
+                    <strong>Date:</strong> {{ appointment.date }}<br>
+                    <strong>Time:</strong> {{ appointment.time }}<br>
+                    <strong>Reason:</strong> {{ appointment.reason }}<br>
+                    <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                    {% if user.patient %}
+                        {% if appointment.status == 'pending' %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                                <button type="submit">Cancel Appointment</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No appointments booked.</li>
+        {% endif %}
+    </ul>
+    
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>
