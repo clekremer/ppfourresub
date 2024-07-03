@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu114.gitpod.io',
+    '8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu115.gitpod.io',
 ]
 
 
@@ -77,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'bookings.context_processors.user_roles',
             ],
         },
     },
@@ -137,7 +139,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu114.gitpod.io',
+    'https://8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu115.gitpod.io',
+    'https://*.gitpod.io',
 ]
 
 LOGIN_URL = 'login'

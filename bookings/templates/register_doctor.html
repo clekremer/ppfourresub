@@ -11,9 +11,13 @@
                 <li><a href="{% url 'index' %}">Home</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
-                    <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
-                    <li><a href="{% url 'patient_detail' %}">Patient Profile</a></li>
-                    <li><a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a></li>
+                    {% if is_patient %}
+                        <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
+                        <li><a href="{% url 'patient_detail' %}">Patient Profile</a></li>
+                    {% endif %}
+                    {% if is_doctor %}
+                        <li><a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a></li>
+                    {% endif %}
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register_patient' %}">Register</a></li>

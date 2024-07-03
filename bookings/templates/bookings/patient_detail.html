@@ -12,12 +12,12 @@
                 {% if user.is_authenticated %}
                     {% if user.patient %}
                         <li><a href="{% url 'patient_detail' %}">Patient Dashboard</a></li>
+                        <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
                     {% endif %}
                     {% if user.doctor %}
                         <li><a href="{% url 'doctor_dashboard' %}">Doctor Dashboard</a></li>
                     {% endif %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
-                    <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register_patient' %}">Register</a></li>
