@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,22 +46,17 @@
                 <strong>Date:</strong> {{ appointment.date }}<br>
                 <strong>Time:</strong> {{ appointment.time }}<br>
                 <strong>Reason:</strong> {{ appointment.reason }}<br>
-                <strong>Status:</strong> 
-                {% if appointment.status == 'approved' %}
-                    Approved
-                {% elif appointment.status == 'rejected' %}
-                    Rejected
-                {% else %}
-                    Pending
-                {% endif %}
-                <br>
+                <strong>Status:</strong> {{ appointment.get_status_display }}<br>
                 <form method="post">
                     {% csrf_token %}
                     <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
-                    <input type="radio" id="approve" name="action" value="approve">
-                    <label for="approve">Approve</label>
-                    <input type="radio" id="reject" name="action" value="reject">
-                    <label for="reject">Reject</label>
+                    <select name="status">
+                        <option value="pending" {% if appointment.status == 'pending' %}selected{% endif %}>Pending</option>
+                        <option value="approved" {% if appointment.status == 'approved' %}selected{% endif %}>Approve</option>
+                        <option value="rejected" {% if appointment.status == 'rejected' %}selected{% endif %}>Reject</option>
+                        <option value="canceled" {% if appointment.status == 'canceled' %}selected{% endif %}>Cancel</option>
+                    </select>
+                    {% csrf_token %}
                     <button type="submit">Submit</button>
                 </form>
             </li>

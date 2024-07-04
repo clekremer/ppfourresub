@@ -7,6 +7,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -58,18 +60,16 @@ def doctor_dashboard(request):
 
     if request.method == 'POST':
         appointment_id = request.POST.get('appointment_id')
-        action = request.POST.get('action')
+        status = request.POST.get('status')
 
-        if action == 'approve':
+        if status in ['approved', 'rejected', 'canceled']:
             appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
-            appointment.status = 'approved'
+            appointment.status = status
             appointment.save()
-            messages.success(request, 'Appointment approved successfully.')
-        elif action == 'reject':
-            appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
-            appointment.status = 'rejected'
-            appointment.save()
-            messages.warning(request, 'Appointment rejected successfully.')
+            messages.success(request, f'Appointment {status} successfully.')
+        else:
+            messages.error(request, 'Invalid status.')
+
 
     return render(request, 'doctor_dashboard.html', {'appointments': appointments, 'doctor': doctor})
 
@@ -135,11 +135,16 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'bookings/login.html', {'form': form})
 
-
 @login_required
 def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect('login')
 
-# Ensure to add the necessary imports and decorators at the top of the file
+@login_required
+def patient_cancel_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
+    appointment.status = 'canceled'
+    appointment.save()
+    messages.success(request, 'Appointment canceled successfully.')
+    return redirect('patient_detail')

@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Patient Detail</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
@@ -56,6 +55,12 @@
                     <strong>Time:</strong> {{ appointment.time }}<br>
                     <strong>Reason:</strong> {{ appointment.reason }}<br>
                     <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                    {% if appointment.status != 'canceled' %}
+                        <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Cancel</button>
+                        </form>
+                    {% endif %}
                 </li>
             {% endfor %}
         {% else %}
