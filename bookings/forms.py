@@ -9,8 +9,12 @@ from .models import Appointment  # Adjusted import statement to import Appointme
 
 class AppointmentForm(forms.ModelForm):
     class Meta:
-        model = Appointment  # Using Appointment model from .models
-        fields = ['patient', 'doctor', 'date', 'time', 'reason']
+        model = Appointment  
+        fields = ['doctor', 'date', 'time', 'reason']
+        widgets = {
+            'date': forms.widgets.DateInput(attrs={'type': 'date'}),
+            'time': forms.widgets.TimeInput(attrs={'type': 'time'})
+        }
 
 
 class UserForm(forms.ModelForm):
