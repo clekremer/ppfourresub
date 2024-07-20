@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu114.gitpod.io',
     '8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu115.gitpod.io',
+    '.herokuapp.com',
 ]
 
 
