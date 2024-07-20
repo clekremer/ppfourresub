@@ -1,1 +1,1 @@
-web: gunicorn PP4_PATIENT_BOOKING.wsgi
+web: gunicorn pp4_patient_booking.wsgi
