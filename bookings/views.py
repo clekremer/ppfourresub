@@ -97,17 +97,24 @@ def patient_detail(request):
     try:
         patient = Patient.objects.get(user=request.user)
         pending_appointments = Appointment.objects.filter(patient=patient, status='pending')
-        other_appointments = Appointment.objects.filter(patient=patient).exclude(status='pending')
+        other_appointments = Appointment.objects.filter(patient=patient).exclude(status='pending').order_by('status')
+        
+        # Create a dictionary to group appointments by status
+        appointments_by_status = {}
+        for appointment in other_appointments:
+            appointments_by_status.setdefault(appointment.status, []).append(appointment)
+
         return render(request, 'bookings/patient_detail.html', {
-            'patient': patient, 
+            'patient': patient,
             'pending_appointments': pending_appointments,
-            'other_appointments': other_appointments
+            'appointments_by_status': appointments_by_status
         })
     except Patient.DoesNotExist:
         if hasattr(request.user, 'doctor'):
             return redirect('doctor_dashboard')
         else:
             return render(request, 'role_not_assigned.html')  # New template to inform no role assigned
+
 
 
 @login_required

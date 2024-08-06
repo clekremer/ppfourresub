@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <!-- Include CSRF token here if needed -->
 </head>
 <body>
     <header>
@@ -29,6 +28,7 @@
             </ul>
         </nav>
     </header>
+
     <h1>Patient Detail</h1>
     <!-- Display messages here -->
     {% if messages %}
@@ -67,20 +67,29 @@
     </ul>
 
     <h2>Answered Appointment Requests</h2>
-    <ul>
-        {% if other_appointments %}
-            {% for appointment in other_appointments %}
-                <li>
-                    <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
-                    <strong>Date:</strong> {{ appointment.date }}<br>
-                    <strong>Time:</strong> {{ appointment.time }}<br>
-                    <strong>Reason:</strong> {{ appointment.reason }}<br>
-                    <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                </li>
+    <div>
+        {% if appointments_by_status %}
+            {% for status, appointments in appointments_by_status.items %}
+                <button class="accordion">{{ status|title }}</button>
+                <div class="panel">
+                    <ul>
+                        {% for appointment in appointments %}
+                            <li>
+                                <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
+                                <strong>Date:</strong> {{ appointment.date }}<br>
+                                <strong>Time:</strong> {{ appointment.time }}<br>
+                                <strong>Reason:</strong> {{ appointment.reason }}<br>
+                                <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endfor %}
         {% else %}
-            <li>No other appointments.</li>
+            <li>No answered appointments.</li>
         {% endif %}
-    </ul>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script> <!-- Link to accordion JS -->
 </body>
 </html>
