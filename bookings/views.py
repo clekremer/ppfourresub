@@ -95,9 +95,14 @@ def register_patient(request):
 @login_required
 def patient_detail(request):
     try:
-        patient = Patient.objects.get(user=request.user)  # Retrieve the Patient instance for the logged-in user
-        appointments = Appointment.objects.filter(patient=patient)
-        return render(request, 'bookings/patient_detail.html', {'patient': patient, 'appointments': appointments})
+        patient = Patient.objects.get(user=request.user)
+        pending_appointments = Appointment.objects.filter(patient=patient, status='pending')
+        other_appointments = Appointment.objects.filter(patient=patient).exclude(status='pending')
+        return render(request, 'bookings/patient_detail.html', {
+            'patient': patient, 
+            'pending_appointments': pending_appointments,
+            'other_appointments': other_appointments
+        })
     except Patient.DoesNotExist:
         if hasattr(request.user, 'doctor'):
             return redirect('doctor_dashboard')

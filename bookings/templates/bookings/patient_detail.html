@@ -45,26 +45,41 @@
     <p><strong>Address:</strong> {{ patient.address }}</p>
     <p><strong>Sex:</strong> {{ patient.get_sex_display }}</p>
     
-    <h2>Booked Appointments</h2>
+    <h2>Pending Appointment Requests</h2>
     <ul>
-        {% if appointments %}
-            {% for appointment in appointments %}
+        {% if pending_appointments %}
+            {% for appointment in pending_appointments %}
                 <li>
                     <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
                     <strong>Date:</strong> {{ appointment.date }}<br>
                     <strong>Time:</strong> {{ appointment.time }}<br>
                     <strong>Reason:</strong> {{ appointment.reason }}<br>
                     <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                    {% if appointment.status != 'canceled' %}
-                        <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Cancel</button>
-                        </form>
-                    {% endif %}
+                    <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Cancel</button>
+                    </form>
                 </li>
             {% endfor %}
         {% else %}
-            <li>No appointments booked.</li>
+            <li>No pending appointments.</li>
+        {% endif %}
+    </ul>
+
+    <h2>Answered Appointment Requests</h2>
+    <ul>
+        {% if other_appointments %}
+            {% for appointment in other_appointments %}
+                <li>
+                    <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
+                    <strong>Date:</strong> {{ appointment.date }}<br>
+                    <strong>Time:</strong> {{ appointment.time }}<br>
+                    <strong>Reason:</strong> {{ appointment.reason }}<br>
+                    <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No other appointments.</li>
         {% endif %}
     </ul>
 </body>

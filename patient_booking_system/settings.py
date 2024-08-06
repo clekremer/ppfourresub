@@ -24,11 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)_q@2db&ty#(#w7t#nh-of#dz(=30fyohabw8p%b-rwy^hp!y$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    '8000-clekremer-ppfour-p3aeypavxxu.ws-eu115.gitpod.io',
     '8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu114.gitpod.io',
     '8000-clekremer-pp4patientboo-v14cyev9dkx.ws-eu115.gitpod.io',
     '.herokuapp.com',
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookings',
 #    'debug_toolbar',
-    'clear_cache',
+#    'clear_cache',
 ]
 
 MIDDLEWARE = [
