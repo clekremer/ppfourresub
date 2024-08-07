@@ -17,6 +17,12 @@ class AppointmentForm(forms.ModelForm):
         }
 
 
+class EditAppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ['date', 'time', 'reason']
+
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .forms import AppointmentForm, UserForm, PatientForm, DoctorRegistrationForm
+from .forms import AppointmentForm, UserForm, PatientForm, DoctorRegistrationForm, EditAppointmentForm
 from .models import Appointment, Patient, Doctor
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -9,6 +9,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 
 
 def index(request):
@@ -91,30 +92,43 @@ def register_patient(request):
         patient_form = PatientForm()
     return render(request, 'bookings/register_patient.html', {'user_form': user_form, 'patient_form': patient_form})
 
+@login_required
+def edit_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
+
+    if request.method == 'POST':
+        form = EditAppointmentForm(request.POST, instance=appointment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Appointment updated successfully.')
+            return redirect('patient_detail')
+        else:
+            messages.error(request, 'Failed to update appointment. Please correct the errors.')
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 @login_required
 def patient_detail(request):
     try:
         patient = Patient.objects.get(user=request.user)
         pending_appointments = Appointment.objects.filter(patient=patient, status='pending')
-        other_appointments = Appointment.objects.filter(patient=patient).exclude(status='pending').order_by('status')
+        other_appointments = Appointment.objects.filter(patient=patient).exclude(status='pending')
         
-        # Create a dictionary to group appointments by status
+        # Organize other appointments by status
         appointments_by_status = {}
         for appointment in other_appointments:
-            appointments_by_status.setdefault(appointment.status, []).append(appointment)
-
+            if appointment.status not in appointments_by_status:
+                appointments_by_status[appointment.status] = []
+            appointments_by_status[appointment.status].append(appointment)
+        
         return render(request, 'bookings/patient_detail.html', {
             'patient': patient,
             'pending_appointments': pending_appointments,
-            'appointments_by_status': appointments_by_status
+            'appointments_by_status': appointments_by_status,
         })
-    except Patient.DoesNotExist:
-        if hasattr(request.user, 'doctor'):
-            return redirect('doctor_dashboard')
-        else:
-            return render(request, 'role_not_assigned.html')  # New template to inform no role assigned
-
+    except ObjectDoesNotExist:
+        messages.error(request, "Patient details not found.")
+        return redirect('index')
 
 
 @login_required

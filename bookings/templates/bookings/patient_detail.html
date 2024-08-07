@@ -55,7 +55,8 @@
                     <strong>Time:</strong> {{ appointment.time }}<br>
                     <strong>Reason:</strong> {{ appointment.reason }}<br>
                     <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                    <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}">
+                    <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' 0 %}')">Edit</button>
+                    <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
                         {% csrf_token %}
                         <button type="submit">Cancel</button>
                     </form>
@@ -88,6 +89,22 @@
         {% else %}
             <li>No answered appointments.</li>
         {% endif %}
+    </div>
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Edit Appointment</h2>
+                <form id="editForm" method="post" action="">
+                    {% csrf_token %}
+                    <label for="date">Date:</label>
+                    <input type="date" id="editDate" name="date" required><br>
+                    <label for="time">Time:</label>
+                    <input type="time" id="editTime" name="time" required><br>
+                    <label for="reason">Reason:</label>
+                    <textarea id="editReason" name="reason" required></textarea><br>
+                    <button type="submit">Save changes</button>
+                </form>
+        </div>        
     </div>
 
     <script src="{% static 'js/script.js' %}"></script> <!-- Link to accordion JS -->
