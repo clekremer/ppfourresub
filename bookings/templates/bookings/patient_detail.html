@@ -81,6 +81,7 @@
                                 <strong>Time:</strong> {{ appointment.time }}<br>
                                 <strong>Reason:</strong> {{ appointment.reason }}<br>
                                 <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                                <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' appointment.id %}')">Edit</button>
                             </li>
                         {% endfor %}
                     </ul>
@@ -90,23 +91,44 @@
             <li>No answered appointments.</li>
         {% endif %}
     </div>
-        <div id="editModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Edit Appointment</h2>
-                <form id="editForm" method="post" action="">
-                    {% csrf_token %}
-                    <label for="date">Date:</label>
-                    <input type="date" id="editDate" name="date" required><br>
-                    <label for="time">Time:</label>
-                    <input type="time" id="editTime" name="time" required><br>
-                    <label for="reason">Reason:</label>
-                    <textarea id="editReason" name="reason" required></textarea><br>
-                    <button type="submit">Save changes</button>
-                </form>
-        </div>        
+    
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Edit Appointment</h2>
+            <form id="editForm" method="post" action="">
+                {% csrf_token %}
+                <label for="date">Date:</label>
+                <input type="date" id="editDate" name="date" required><br>
+                <label for="time">Time:</label>
+                <input type="time" id="editTime" name="time" required><br>
+                <label for="reason">Reason:</label>
+                <textarea id="editReason" name="reason" required></textarea><br>
+                <button type="submit">Save changes</button>
+            </form>
+        </div>
     </div>
 
     <script src="{% static 'js/script.js' %}"></script> <!-- Link to accordion JS -->
+    <script>
+        function openModal(id, date, time, reason, actionUrl) {
+            document.getElementById('editDate').value = date;
+            document.getElementById('editTime').value = time;
+            document.getElementById('editReason').value = reason;
+            document.getElementById('editForm').action = actionUrl.replace('0', id);
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            var modal = document.getElementById('editModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>

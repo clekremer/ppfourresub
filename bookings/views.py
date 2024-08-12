@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 
 
+
 def index(request):
     return render(request, 'index.html')
 
@@ -71,7 +72,6 @@ def doctor_dashboard(request):
         else:
             messages.error(request, 'Invalid status.')
 
-
     return render(request, 'doctor_dashboard.html', {'appointments': appointments, 'doctor': doctor})
 
 
@@ -92,6 +92,7 @@ def register_patient(request):
         patient_form = PatientForm()
     return render(request, 'bookings/register_patient.html', {'user_form': user_form, 'patient_form': patient_form})
 
+
 @login_required
 def edit_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
@@ -99,13 +100,16 @@ def edit_appointment(request, appointment_id):
     if request.method == 'POST':
         form = EditAppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
-            form.save()
+            appointment = form.save(commit=False)
+            appointment.status = 'pending'  # Change the status to pending
+            appointment.save()
             messages.success(request, 'Appointment updated successfully.')
             return redirect('patient_detail')
         else:
             messages.error(request, 'Failed to update appointment. Please correct the errors.')
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
 
 @login_required
 def patient_detail(request):
@@ -161,11 +165,13 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'bookings/login.html', {'form': form})
 
+
 @login_required
 def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect('login')
+
 
 @login_required
 def patient_cancel_appointment(request, appointment_id):
