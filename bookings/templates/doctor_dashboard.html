@@ -39,28 +39,48 @@
         </ul>
     {% endif %}
     
+    <h2>Pending Appointment Requests</h2>
     <ul>
-        {% for appointment in appointments %}
-            <li>
-                <strong>Patient:</strong> {{ appointment.patient.user.username }}<br>
-                <strong>Date:</strong> {{ appointment.date }}<br>
-                <strong>Time:</strong> {{ appointment.time }}<br>
-                <strong>Reason:</strong> {{ appointment.reason }}<br>
-                <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                <form method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
-                    <select name="status">
-                        <option value="pending" {% if appointment.status == 'pending' %}selected{% endif %}>Pending</option>
-                        <option value="approved" {% if appointment.status == 'approved' %}selected{% endif %}>Approve</option>
-                        <option value="rejected" {% if appointment.status == 'rejected' %}selected{% endif %}>Reject</option>
-                        <option value="canceled" {% if appointment.status == 'canceled' %}selected{% endif %}>Cancel</option>
-                    </select>
-                    {% csrf_token %}
-                    <button type="submit">Submit</button>
-                </form>
-            </li>
-        {% endfor %}
+        {% if pending_appointments %}
+            {% for appointment in pending_appointments %}
+                <li>
+                    <strong>Patient:</strong> {{ appointment.patient.user.username }}<br>
+                    <strong>Date:</strong> {{ appointment.date }}<br>
+                    <strong>Time:</strong> {{ appointment.time }}<br>
+                    <strong>Reason:</strong> {{ appointment.reason }}<br>
+                    <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                        <select name="status" required>
+                            <option value="approved">Approve</option>
+                            <option value="rejected">Reject</option>
+                            <option value="canceled">Cancel</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No pending appointments.</li>
+        {% endif %}
+    </ul>
+
+    <h2>Answered Appointment Requests</h2>
+    <ul>
+        {% if answered_appointments %}
+            {% for appointment in answered_appointments %}
+                <li>
+                    <strong>Patient:</strong> {{ appointment.patient.user.username }}<br>
+                    <strong>Date:</strong> {{ appointment.date }}<br>
+                    <strong>Time:</strong> {{ appointment.time }}<br>
+                    <strong>Reason:</strong> {{ appointment.reason }}<br>
+                    <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No answered appointments.</li>
+        {% endif %}
     </ul>
 </body>
 </html>

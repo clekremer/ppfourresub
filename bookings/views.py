@@ -51,14 +51,15 @@ def register_doctor(request):
     return render(request, 'register_doctor.html', {'form': form})
 
 
-@login_required
 def doctor_dashboard(request):
     try:
         doctor = request.user.doctor
-        appointments = Appointment.objects.filter(doctor=doctor)
+        pending_appointments = Appointment.objects.filter(doctor=doctor, status='pending')
+        answered_appointments = Appointment.objects.filter(doctor=doctor).exclude(status='pending')
     except ObjectDoesNotExist:
         doctor = None
-        appointments = []
+        pending_appointments = []
+        answered_appointments = []
 
     if request.method == 'POST':
         appointment_id = request.POST.get('appointment_id')
@@ -72,8 +73,11 @@ def doctor_dashboard(request):
         else:
             messages.error(request, 'Invalid status.')
 
-    return render(request, 'doctor_dashboard.html', {'appointments': appointments, 'doctor': doctor})
-
+    return render(request, 'doctor_dashboard.html', {
+        'doctor': doctor,
+        'pending_appointments': pending_appointments,
+        'answered_appointments': answered_appointments,
+    })
 
 def register_patient(request):
     if request.method == 'POST':
