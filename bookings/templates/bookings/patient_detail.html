@@ -81,7 +81,15 @@
                                 <strong>Time:</strong> {{ appointment.time }}<br>
                                 <strong>Reason:</strong> {{ appointment.reason }}<br>
                                 <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                                <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' appointment.id %}')">Edit</button>
+                                {% if appointment.status != 'canceled' %}
+                                    <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' appointment.id %}')">Edit</button>
+                                {% endif %}
+                                {% if appointment.status in 'approved,pending' %}
+                                    <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit">Cancel</button>
+                                    </form>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>

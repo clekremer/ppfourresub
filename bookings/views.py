@@ -12,7 +12,6 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 
 
-
 def index(request):
     return render(request, 'index.html')
 
@@ -51,6 +50,7 @@ def register_doctor(request):
     return render(request, 'register_doctor.html', {'form': form})
 
 
+@login_required
 def doctor_dashboard(request):
     try:
         doctor = request.user.doctor
@@ -65,11 +65,27 @@ def doctor_dashboard(request):
         appointment_id = request.POST.get('appointment_id')
         status = request.POST.get('status')
 
-        if status in ['approved', 'rejected', 'canceled']:
-            appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
-            appointment.status = status
-            appointment.save()
-            messages.success(request, f'Appointment {status} successfully.')
+        # Get the appointment related to the doctor
+        appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
+
+        # Handle approval and rejection for pending appointments
+        if status in ['approved', 'rejected']:
+            if appointment.status == 'pending':  # Approve or reject only pending appointments
+                appointment.status = status
+                appointment.save()
+                messages.success(request, f'Appointment {status} successfully.')
+            else:
+                messages.error(request, 'You can only approve or reject pending appointments.')
+
+        # Handle cancellation for answered appointments
+        elif status == 'canceled':
+            if appointment.status in ['approved', 'rejected']:  # Only allow canceling answered appointments
+                appointment.status = status
+                appointment.save()
+                messages.success(request, 'Appointment canceled successfully.')
+            else:
+                messages.error(request, 'Cannot cancel a pending appointment.')
+
         else:
             messages.error(request, 'Invalid status.')
 
@@ -78,6 +94,7 @@ def doctor_dashboard(request):
         'pending_appointments': pending_appointments,
         'answered_appointments': answered_appointments,
     })
+
 
 def register_patient(request):
     if request.method == 'POST':
@@ -100,6 +117,10 @@ def register_patient(request):
 @login_required
 def edit_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
+
+    if appointment.status == 'canceled':
+        messages.error(request, 'Canceled appointments cannot be edited.')
+        return redirect('patient_detail')
 
     if request.method == 'POST':
         form = EditAppointmentForm(request.POST, instance=appointment)
@@ -180,7 +201,12 @@ def logout_view(request):
 @login_required
 def patient_cancel_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
-    appointment.status = 'canceled'
-    appointment.save()
-    messages.success(request, 'Appointment canceled successfully.')
+    
+    if appointment.status in ['pending', 'approved']:
+        appointment.status = 'canceled'
+        appointment.save()
+        messages.success(request, 'Appointment canceled successfully.')
+    else:
+        messages.error(request, 'Only pending or approved appointments can be canceled.')
+    
     return redirect('patient_detail')
