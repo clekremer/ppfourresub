@@ -55,7 +55,6 @@
                         <select name="status" required>
                             <option value="approved">Approve</option>
                             <option value="rejected">Reject</option>
-                            <option value="canceled">Cancel</option>
                         </select>
                         <button type="submit">Update</button>
                     </form>
@@ -76,6 +75,12 @@
                     <strong>Time:</strong> {{ appointment.time }}<br>
                     <strong>Reason:</strong> {{ appointment.reason }}<br>
                     <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                        <input type="hidden" name="status" value="canceled">
+                        <button type="submit">Cancel</button>
+                    </form>
                 </li>
             {% endfor %}
         {% else %}
