@@ -156,3 +156,6 @@ CSRF_TRUSTED_ORIGINS = [
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'patient_list'
 LOGOUT_REDIRECT_URL = 'login'
+
+
+ADMIN_URL = '/admin/login/'

@@ -1,27 +1,23 @@
-
 # bookings/forms.py
 
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Patient, Doctor
-from .models import Appointment  # Adjusted import statement to import Appointment model
+from .models import Patient, Doctor, Appointment
 
 class AppointmentForm(forms.ModelForm):
     class Meta:
-        model = Appointment  
+        model = Appointment
         fields = ['doctor', 'date', 'time', 'reason']
         widgets = {
             'date': forms.widgets.DateInput(attrs={'type': 'date'}),
             'time': forms.widgets.TimeInput(attrs={'type': 'time'})
         }
 
-
 class EditAppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = ['date', 'time', 'reason']
-
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -38,8 +34,7 @@ class PatientForm(forms.ModelForm):
 class DoctorRegistrationForm(forms.ModelForm):
     class Meta:
         model = Doctor
-        fields = ['user', 'specialty'] 
-
+        fields = ['specialty']  # Removed user field since it will be assigned programmatically
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))

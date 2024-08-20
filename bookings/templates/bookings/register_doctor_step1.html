@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Doctor - Step 1</title>
+</head>
+<body>
+    <h1>Register Doctor - Step 1</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Proceed to Next Step</button>
+    </form>
+</body>
+</html>
