@@ -13,6 +13,7 @@
         <nav>
             <ul>
                 {% if user.is_authenticated %}
+                    <li><a href="{% url 'index' %}">Home</a></li>
                     {% if user.patient %}
                         <li><a href="{% url 'patient_detail' %}">Patient Dashboard</a></li>
                         <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
@@ -22,6 +23,7 @@
                     {% endif %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
+                    <li><a href="{% url 'index' %}">Home</a></li>
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register_patient' %}">Register Patient</a></li>
                     <li><a href="{% url 'register_doctor_step1' %}">Register Doctor</a></li>
@@ -40,6 +42,30 @@
                 specialties. Supplementary therapy methods and recommendations are utilized to alleviate and eliminate
                 your complaints. Get to know us and form an impression of our practice as well as our treatment methods.
             </p>
+        </section>
+
+        <section id="treatment-section">
+            <div id="treatment">
+                <h3>Osteopathic Treatment</h3>
+                <p>We reactivate the body's self-healing processes by restoring movement and rhythm. Osteopathic
+                    treatment can be beneficial in cases of pain and restricted movement throughout the entire body.
+                    Common triggers for pain often include blocked joints, visceral dysfunctions, adhered tissues, or
+                    tense muscles. In osteopathy, we consider the spine, intervertebral discs, vertebral joints,
+                    capsular ligaments, muscles, nerves, organs, and vessels. When the overall structure is healthy, you
+                    will also feel well. Through osteopathy, we can discover and treat conditions such as spinal
+                    problems, disc herniations, migraines, headaches, dysfunction of internal organs, digestive issues,
+                    and much more. By addressing and resolving blockages, osteopathy aims to restore a pleasant sense of
+                    well-being.
+                </p>
+            </div>
+            <div id="treatment-image"></div>
+        </section>
+        <section id="appointment-section">
+            <div id="appointment">
+                <a href="{% url 'book_appointment' %}"><h3>Appointment Booking System</h3></a>
+                <p><a href="{% url 'register_patient' %}">Register here to use our booking system!</a></p>
+            </div>
+            <div id="treatment-image"></div>
         </section>
     </main>
      <!-- Footer -->
