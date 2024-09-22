@@ -1,14 +1,17 @@
 /* Global styles */
-body {
+html, body {
+    height: 100%; /* Ensure the body takes up the full height of the viewport */
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column; /* Set the body to flexbox to push the footer down */
 }
 
 header {
-    background-color: #fff;;
+    background-color: #fff;
     color: #fff;
     padding: 10px 0;
 }
@@ -29,7 +32,6 @@ header nav ul li {
     margin-right: 50px;
 }
 
-
 header nav ul li a {
     color: grey; /* Updated to grey font color */
     text-decoration: none;
@@ -41,7 +43,9 @@ header nav ul li a:hover {
     color: #fff; /* Optional: changes font color to white on hover */
 }
 
+/* Ensure main content expands to push footer down */
 main {
+    flex: 1; /* Flex to fill available space */
     padding: 20px;
     background-color: #fff; /* Updated to match the header background color */
 }
@@ -79,7 +83,7 @@ main {
     color: #155724;
 }
 
-messages .alert-warning,
+.messages .alert-warning,
 .messages .warning {
     background-color: #fff3cd;
     border-color: #ffeeba;
@@ -158,11 +162,11 @@ form .btn:hover {
 
 /* Footer styles */
 footer {
-    margin-top: auto;
     background-color: #007bff;
     color: white;
     text-align: center;
     padding: 3px 0;
+    margin-top: auto; /* Ensures footer stays at the bottom */
 }
 
 footer p {
@@ -232,7 +236,6 @@ footer p {
 }
 
 /* Footer */
-
 footer {
     background-color: #bac4cd;
 }
