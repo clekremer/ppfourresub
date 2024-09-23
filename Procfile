@@ -1,1 +1,1 @@
-web: gunicorn PPFOUR.wsgi
+web: gunicorn patient_booking_system.wsgi
