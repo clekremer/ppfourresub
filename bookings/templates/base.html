@@ -14,6 +14,7 @@
         <nav>
             <ul>
                 {% if user.is_authenticated %}
+                    <li>Welcome, {{ user.username }}!</li> <!-- Added login state display -->
                     {% if user.patient %}
                         <li><a href="{% url 'patient_detail' %}">Patient Dashboard</a></li>
                         <li><a href="{% url 'book_appointment' %}">Book Appointment</a></li>
@@ -23,6 +24,7 @@
                     {% endif %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
+                    <li>You are not logged in.</li> <!-- Added state when not logged in -->
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register_patient' %}">Register Patient</a></li>
                     <li><a href="{% url 'register_doctor' %}">Register Doctor</a></li>

@@ -253,3 +253,15 @@ footer {
     padding: 5%;
     color: #ffffff;
 }
+.notification {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white; /* Ensure text is visible on the darker background */
+    background-color: #bac4cd;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: normal; /* Remove bold if not used elsewhere */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+    font-family: inherit; /* Ensures it uses the same font as the page */
+}
