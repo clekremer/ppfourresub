@@ -171,13 +171,26 @@ def register_patient(request):
             user = user_form.save(commit=False)
             user.set_password(user_form.cleaned_data['password'])
             user.save()
+            
             patient = patient_form.save(commit=False)
             patient.user = user
             patient.save()
-            return redirect('patient_detail')
+
+            # Authenticate and log the user in after registration
+            authenticated_user = authenticate(username=user.username, password=user_form.cleaned_data['password'])
+            if authenticated_user is not None:
+                login(request, authenticated_user)
+                messages.success(request, 'Registration successful. You are now logged in.')
+                return redirect('patient_detail')
+            else:
+                messages.error(request, 'There was an issue logging you in after registration. Please try logging in manually.')
+                return redirect('login')
+        else:
+            messages.error(request, 'Failed to register. Please correct the errors.')
     else:
         user_form = UserForm()
         patient_form = PatientForm()
+
     return render(request, 'bookings/register_patient.html', {'user_form': user_form, 'patient_form': patient_form})
 
 @login_required
