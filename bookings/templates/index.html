@@ -11,9 +11,11 @@
 <body>
     <header>
         <nav>
-            <ul>
+            <!-- Toggle button -->
+            <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
+            <ul class="nav-menu">
                 {% if user.is_authenticated %}
-                    <div class="notification">Welcome, {{ user.username }}!</div> <!-- Welcome message here -->
+                    <div class="notification">Welcome, {{ user.username }}!</div>
                     <li><a href="{% url 'index' %}">Home</a></li>
                     {% if user.patient %}
                         <li><a href="{% url 'patient_detail' %}">Patient Dashboard</a></li>
@@ -24,7 +26,7 @@
                     {% endif %}
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
-                    <div class="notification">You are not logged in.</div> <!-- Message for guests -->
+                    <div class="notification">You are not logged in.</div>
                     <li><a href="{% url 'index' %}">Home</a></li>
                     <li><a href="{% url 'login' %}">Login</a></li>
                     <li><a href="{% url 'register_patient' %}">Register Patient</a></li>
@@ -98,6 +100,7 @@
     </footer>
        <!-- Font Awesome kit -->
     <script src="https://kit.fontawesome.com/3b20d96fa9.js" crossorigin="anonymous"></script>
+    <script defer src="{% static 'js/script.js' %}"></script>
 </body>
 
 </html>
