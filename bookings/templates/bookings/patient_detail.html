@@ -10,7 +10,9 @@
 <body>
     <header>
         <nav>
-            <ul>
+            <!-- Toggle button -->
+            <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
+            <ul class="nav-menu">
                 <li><a href="{% url 'index' %}">Home</a></li>
                 {% if user.is_authenticated %}
                     <div class="notification">Welcome, {{ user.username }}!</div> <!-- Welcome message here -->
@@ -30,114 +32,121 @@
         </nav>
     </header>
 
-    <h1>Patient Detail</h1>
-    <!-- Display messages here -->
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    
-    <p><strong>Username:</strong> {{ patient.user.username }}</p>
-    <p><strong>Email:</strong> {{ patient.user.email }}</p>
-    <p><strong>Phone:</strong> {{ patient.phone }}</p>
-    <p><strong>Address:</strong> {{ patient.address }}</p>
-    <p><strong>Sex:</strong> {{ patient.get_sex_display }}</p>
-    
-    <h2>Pending Appointment Requests</h2>
-    <ul>
-        {% if pending_appointments %}
-            {% for appointment in pending_appointments %}
-                <li>
-                    <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
-                    <strong>Date:</strong> {{ appointment.date }}<br>
-                    <strong>Time:</strong> {{ appointment.time }}<br>
-                    <strong>Reason:</strong> {{ appointment.reason }}<br>
-                    <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                    <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' 0 %}')">Edit</button>
-                    <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">Cancel</button>
-                    </form>
-                </li>
+    <main>
+        <h1>Patient Detail</h1>
+        <!-- Display messages here -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
             {% endfor %}
-        {% else %}
-            <li>No pending appointments.</li>
+        </ul>
         {% endif %}
-    </ul>
+        
+        <p><strong>Username:</strong> {{ patient.user.username }}</p>
+        <p><strong>Email:</strong> {{ patient.user.email }}</p>
+        <p><strong>Phone:</strong> {{ patient.phone }}</p>
+        <p><strong>Address:</strong> {{ patient.address }}</p>
+        <p><strong>Sex:</strong> {{ patient.get_sex_display }}</p>
+        
+        <h2>Pending Appointment Requests</h2>
+        <ul>
+            {% if pending_appointments %}
+                {% for appointment in pending_appointments %}
+                    <li>
+                        <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
+                        <strong>Date:</strong> {{ appointment.date }}<br>
+                        <strong>Time:</strong> {{ appointment.time }}<br>
+                        <strong>Reason:</strong> {{ appointment.reason }}<br>
+                        <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                        <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' 0 %}')">Edit</button>
+                        <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">Cancel</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>No pending appointments.</li>
+            {% endif %}
+        </ul>
 
-    <h2>Answered Appointment Requests</h2>
-    <div>
-        {% if appointments_by_status %}
-            {% for status, appointments in appointments_by_status.items %}
-                <button class="accordion">{{ status|title }}</button>
-                <div class="panel">
-                    <ul>
-                        {% for appointment in appointments %}
-                            <li>
-                                <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
-                                <strong>Date:</strong> {{ appointment.date }}<br>
-                                <strong>Time:</strong> {{ appointment.time }}<br>
-                                <strong>Reason:</strong> {{ appointment.reason }}<br>
-                                <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                                {% if appointment.status != 'canceled' %}
-                                    <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' appointment.id %}')">Edit</button>
-                                {% endif %}
-                                {% if appointment.status in 'approved,pending' %}
-                                    <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
-                                        {% csrf_token %}
-                                        <button type="submit">Cancel</button>
-                                    </form>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endfor %}
-        {% else %}
-            <li>No answered appointments.</li>
-        {% endif %}
-    </div>
-    
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Edit Appointment</h2>
-            <form id="editForm" method="post" action="">
-                {% csrf_token %}
-                <label for="date">Date:</label>
-                <input type="date" id="editDate" name="date" required><br>
-                <label for="time">Time:</label>
-                <input type="time" id="editTime" name="time" required><br>
-                <label for="reason">Reason:</label>
-                <textarea id="editReason" name="reason" required></textarea><br>
-                <button type="submit">Save changes</button>
-            </form>
+        <h2>Answered Appointment Requests</h2>
+        <div>
+            {% if appointments_by_status %}
+                {% for status, appointments in appointments_by_status.items %}
+                    <button class="accordion">{{ status|title }}</button>
+                    <div class="panel">
+                        <ul>
+                            {% for appointment in appointments %}
+                                <li>
+                                    <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
+                                    <strong>Date:</strong> {{ appointment.date }}<br>
+                                    <strong>Time:</strong> {{ appointment.time }}<br>
+                                    <strong>Reason:</strong> {{ appointment.reason }}<br>
+                                    <strong>Status:</strong> {{ appointment.get_status_display }}<br>
+                                    {% if appointment.status != 'canceled' %}
+                                        <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' appointment.id %}')">Edit</button>
+                                    {% endif %}
+                                    {% if appointment.status in 'approved,pending' %}
+                                        <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit">Cancel</button>
+                                        </form>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <li>No answered appointments.</li>
+            {% endif %}
         </div>
-    </div>
+        
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Edit Appointment</h2>
+                <form id="editForm" method="post" action="">
+                    {% csrf_token %}
+                    <label for="date">Date:</label>
+                    <input type="date" id="editDate" name="date" required><br>
+                    <label for="time">Time:</label>
+                    <input type="time" id="editTime" name="time" required><br>
+                    <label for="reason">Reason:</label>
+                    <textarea id="editReason" name="reason" required></textarea><br>
+                    <button type="submit">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </main>
 
-    <script src="{% static 'js/script.js' %}"></script> <!-- Link to accordion JS -->
-    <script>
-        function openModal(id, date, time, reason, actionUrl) {
-            document.getElementById('editDate').value = date;
-            document.getElementById('editTime').value = time;
-            document.getElementById('editReason').value = reason;
-            document.getElementById('editForm').action = actionUrl.replace('0', id);
-            document.getElementById('editModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('editModal').style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById('editModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-    </script>
+    <footer>
+        <ul id="social-networks">
+            <li>
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Visit our Facebook page">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.twitter.com/" target="_blank" rel="noopener" aria-label="Visit our Twitter page">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="Visit our YouTube page">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Visit our Instagram page">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <script src="https://kit.fontawesome.com/3b20d96fa9.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/script.js' %}"></script> <!-- Link to JS -->
 </body>
 </html>

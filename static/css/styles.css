@@ -10,6 +10,29 @@ html, body {
     flex-direction: column; /* Set the body to flexbox to push the footer down */
 }
 
+
+.notification {
+    position: fixed; /* Anchor it to the viewport */
+    top: 10px; /* Distance from the top */
+    right: 10px; /* Distance from the right */
+    background-color: #007bff; /* Blue background for visibility */
+    color: #ffffff; /* White text color for contrast */
+    padding: 10px 15px; /* Internal spacing */
+    border-radius: 5px; /* Rounded corners for a modern look */
+    font-weight: bold; /* Emphasize the text */
+    z-index: 1000; /* Ensure it appears above other elements */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Shadow for depth */
+    max-width: 90%; /* Prevent it from being too wide on smaller screens */
+    text-align: center; /* Center the text inside the box */
+}
+
+/* Ensure main content expands to push footer down */
+main {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+}
+
 header {
     background-color: #fff;
     color: #fff;
@@ -334,5 +357,11 @@ footer {
 
     .nav-toggle:focus {
         outline: none; /* Remove focus outline */
+    }
+    .notification {
+        top: 5px; /* Reduce space from the top */
+        right: 5px; /* Reduce space from the right */
+        padding: 8px 10px; /* Adjust padding for smaller screens */
+        font-size: 0.9rem; /* Slightly smaller font size */
     }
 }
