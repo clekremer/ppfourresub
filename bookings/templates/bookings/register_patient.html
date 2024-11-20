@@ -10,6 +10,14 @@
 </head>
 <body>
     <header>
+        <!-- Welcome message here -->
+        <div class="notification">
+            {% if user.is_authenticated %}
+                Welcome, {{ user.username }}!
+            {% else %}
+                You are not logged in.
+            {% endif %}
+        </div>
         <nav>
             <!-- Toggle button -->
             <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
