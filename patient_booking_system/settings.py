@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
     '8000-clekremer-ppfourresub-ygckzpxwzps.ws-eu116.gitpod.io',
     'localhost',
     '127.0.0.1',
+    'pp4patbook-9453e2a559a6.herokuapp.com',
     '.herokuapp.com',
 ]
 
