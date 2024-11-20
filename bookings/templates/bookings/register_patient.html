@@ -4,13 +4,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Patient</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <header>
         <nav>
-            <ul>
+            <!-- Toggle button -->
+            <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
+            <ul class="nav-menu">
                 <li><a href="{% url 'index' %}">Home</a></li>
                 {% if user.is_authenticated %}
                     {% if user.patient %}
@@ -96,5 +99,6 @@
     </footer>
        <!-- Font Awesome kit -->
     <script src="https://kit.fontawesome.com/3b20d96fa9.js" crossorigin="anonymous"></script>
+    <script defer src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

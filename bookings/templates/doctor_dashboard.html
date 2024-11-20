@@ -4,13 +4,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <title>Doctor Dashboard</title>
 </head>
 <body>
     <header>
         <nav>
-            <ul>
+            <!-- Toggle button -->
+            <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
+            <ul class="nav-menu">
                 <li><a href="{% url 'index' %}">Home</a></li>
                 {% if user.is_authenticated %}
                     <div class="notification">Welcome, {{ user.username }}!</div> <!-- Welcome message here -->
@@ -88,5 +91,32 @@
             <li>No answered appointments.</li>
         {% endif %}
     </ul>
+
+    <footer>
+        <ul id="social-networks">
+            <li>
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Visit our Facebook page">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.twitter.com/" target="_blank" rel="noopener" aria-label="Visit our Twitter page">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="Visit our YouTube page">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Visit our Instagram page">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <script src="https://kit.fontawesome.com/3b20d96fa9.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/script.js' %}"></script> <!-- Link to JS -->
 </body>
 </html>
