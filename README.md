@@ -88,7 +88,7 @@ Github projects was used to manage agile development.
 
 ### Database Security
 
-### Custom error pages:
+### Custom error pages
 
 ## Features
 
