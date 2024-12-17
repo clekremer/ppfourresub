@@ -69,6 +69,17 @@ The page has a very simple design. Focus lies on the functionality and providing
 
 #### Wireframes
 
+<summary>Desktop Wireframe</summary>
+
+![Desktop Wireframe - Home Login ](docs/readme_images/wireframe_home_login.png)
+</details>
+
+![Desktop Wireframe - Home Logout](docs/readme_images/wireframe_home_logout.png)
+</details>
+
+![Desktop Wireframe - Dashboard](docs/readme_images/wireframe_dashboard.png)
+</details>
+
 ## Agile Methodology
 
 Github projects was used to manage agile development.
