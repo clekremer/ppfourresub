@@ -140,6 +140,42 @@ Testing document and the testing results can be found [here](/TESTING.md)
 The was deployed on Heroku by the following steps: 
 
 
+### Create the Heroku App:
+- Log in to [Heroku](https://dashboard.heroku.com/apps) 
+- click button "Create New App"
+- Enter a unique app name
+- Select region (Europe)
+- Click "Create App" button
+
+### Setting tab:
+- add DATABASE_URL in the Config Vars 
+- add DISABLE_COLLECTSTATIC = 1 in the Config Vars 
+
+
+### Prepare the env and settings.py file:
+- In GitPod workspace, create an env.py file 
+- Add the DATABASE_URL value and SECRET_KEY value to the env.py file 
+- Update the settings.py to import the env.py file and add SECRETKEY and DATABASE_URL file paths
+- Comment out the default database configuration
+- Save files and make migrations
+- Add the STATIC files settings - the url, storage path, directory path, root path and default file storage path.
+- Link the file to the templates directory in Heroku.
+- Change the templates directory to TEMPLATES_DIR
+- Add Heroku to the ALLOWED_HOSTS list the format ['app_name.heroku.com', 'localhost']
+
+### Create files / directories
+- Create requirements.txt file
+!!!- Create three directories in the main directory; media, storage and templates.???
+- Create a file named "Procfile" in the main directory and add the following: web: gunicorn project-name.wsgi
+
+
+### Deploy
+- Ensure in Django settings, DEBUG is False
+- Go to the deploy tab on Heroku and connect to the GitHub project 
+- deploy the app by Automatic Deploys or deploy it manually
+- Click View or open app button to load the deployed site.
+
+
 ## Languages
 
 - Python
