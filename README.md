@@ -89,7 +89,11 @@ Github projects was used to manage agile development.
 
 ## Data Model
 
+![Database Schema](docs/readme_images/datamodel.png)
+
 ## Testing
+
+Testing document and the testing results can be found [here](/TESTING.md)
 
 
 ## Security Features and Defensive Design
