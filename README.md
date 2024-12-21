@@ -103,6 +103,8 @@ The page has a very simple design. Focus lies on the functionality and providing
 
 #### Wireframes
 
+Wireframes were created with Balsamiq.
+
 <summary>Desktop Wireframe</summary>
 
 ![Desktop Wireframe - Home Login ](docs/readme_images/wireframe_home_login.png)
