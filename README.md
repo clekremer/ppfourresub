@@ -2,7 +2,7 @@
 
 The Osteopathy Patient Booking System is web app for rquesting and scheduling Osteopathy appointment between Doctor and Patient. 
 
-The live app can be accessed here - [Osteopathy Patient Booking System](https://pp4-pbooking-ea6d40f1e5c0.herokuapp.com/)
+The live app can be accessed here - [Osteopathy Patient Booking System](https://pp4patbook-9453e2a559a6.herokuapp.com/)
 
 ## Table of Contents
 
@@ -160,8 +160,13 @@ Testing document and the testing results can be found [here](/TESTING.md)
 
 ### Form Validation
 
+Empty or incorrect data cannot not be submitted in any form. I this case a notification will appear to inform the user which kind of data he has to add or change. 
 
 ### Database Security
+
+CSRF tokens were used for all forms on this site. 
+
+Database url and secret key were added in the env.py file to ensure  the database security. 
 
 ### Custom error pages
 
