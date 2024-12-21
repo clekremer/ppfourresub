@@ -105,16 +105,26 @@ The page has a very simple design. Focus lies on the functionality and providing
 
 Wireframes were created with Balsamiq.
 
-<summary>Desktop Wireframe</summary>
+<details>
+<summary>Desktop Wireframe - Home Login</summary>
 
 ![Desktop Wireframe - Home Login ](docs/readme_images/wireframe_home_login.png)
 </details>
 
+<details>
+<summary>Desktop Wireframe - Home Logout</summary>
+
 ![Desktop Wireframe - Home Logout](docs/readme_images/wireframe_home_logout.png)
 </details>
 
+<details>
+<summary>Desktop Wireframe - Dashboard</summary>
+
 ![Desktop Wireframe - Dashboard](docs/readme_images/wireframe_dashboard.png)
 </details>
+
+<details>
+<summary>Wireframe - Mobile View Home</summary>
 
 ![Mobile Wireframe - Home](docs/readme_images/wireframe_mobile.png)
 </details>
