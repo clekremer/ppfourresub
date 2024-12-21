@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
-if os.path.isfile('env.py'):
-    import env
+import environ
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 #    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
@@ -108,13 +108,10 @@ WSGI_APPLICATION = 'patient_booking_system.wsgi.application'
 #    }
 #}
 
-#DATABASES = {
-#    'default': dj_database_url.parse(os.environ.get("DATABASE_URL", "postgresql://neondb_owner:UGXBrWO5j4oL@ep-dark-moon-a2y6jsfj.eu-central-1.aws.neon.tech/boney_herbs_elder_654816"))
-#}
-
 DATABASES = {
     'default': dj_database_url.parse(env('DATABASE_URL'))
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -156,11 +153,12 @@ STATIC_URL = '/static/'
 
 # Directories for static files during development
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / 'static',
 ]
 
+
 # Directory for collected static files during deployment
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
