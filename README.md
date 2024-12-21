@@ -50,12 +50,46 @@ The user is patient who want to get brief information about the service. He want
 ### User Stories
 
 #### EPIC | Register Patient
+ - As a Patient I can register an account so that I can request/edit/cancel an appointment with a specific doctor.
+ - As a Patient I can log in or log out of my account so that I can keep my account secure.
+ - As a Patient I can access my Patient Dashboard
+ - As a Patient I can see my login status so that I know if I'm logged in or out.
 
 #### EPIC | Register Doctor 
+ - As a Doctor I can register as doctor so that I receive and manage (approve, reject or cancel) appointment requests from Patients
+ - As a Doctor I can log in or log out of my account so that I can keep my account secure.
+ - As a Doctor I can access my doctor dashboard
+ - As a Doctor I can see my login status so that I know if I'm logged in or out.
 
 #### EPIC | Manage Appointments as Patient
+ - As a Patient I can create and submit appointment requests so that I can create appointments with specific doctors.
+ - As a Patient I can edit existing appointments and appointment request so that I can change date, time and reason for my appointment.
+ - As a Patient I can cancel appointment requests and approved appointments so that I can cancel appointments when I don´t need them anymore.
 
 #### EPIC | Mangae Appointments as Doctor 
+ - As a Doctor I can approve appointment requests so that I can confirm an appointment to a patient.
+ - As a Doctor I can reject appointment request so that I can tell the patient that he needs to suggest another date and time.
+ - As a Doctor I can cancel an already answered appointment request when I cannot attend them.
+
+#### EPIC | Patient Dashboard
+ - As a Patient I can access my Patient Dashboard
+ - As a Patient I can view my Patient details on Patient Dashboard
+ - As a Patient I can view my appointment requests and my approved, rejected and canceled appointments on Patient Dashboard
+
+#### EPIC | Doctor Dashboard
+ - As a Doctor I can access my Doctor Dashboard
+ - As a Doctor I can view my Doctor details on Doctor Dashboard
+ - As a Doctor I can view my appointment requests and my approved, rejected and canceled appointments on Doctor Dashboard
+
+#### EPIC | User Navigation 
+ - As a Site User I can easily understand the Use Case of the site 
+ - As a Site User I can intuitively navigate on the site and find the content and functionality I´m looking for 
+ - As a Site User (Doctor or Patient) I can view the respective dashboard and view a paginated list of appointment requests and appointments
+
+#### Not implemented User Stories 
+ - As a patient or doctor I can edit my user details 
+ - As a doctor I can enter my availabilities to show my patients when I have available appointments 
+ - As patient I can view available time slots in a calender view for each doctor 
 
 ### Design
 
