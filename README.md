@@ -166,27 +166,64 @@ Empty or incorrect data cannot not be submitted in any form. I this case a notif
 
 CSRF tokens were used for all forms on this site. 
 
-Database url and secret key were added in the env.py file to ensure  the database security. 
+Database url and secret key were added in the .env file to ensure  the database security. 
 
 ### Custom error pages
 
 ## Features
 
-### Header
+### Header / Navigation Bar 
+
+ - the navigation bar is visible on every page 
+ - Users which are not logged in will see this view:
+ - In this case they have the possibility to log in or the register as a new patient or doctor 
+ - Users which are logged in will see this view:
+ - A User who is registered as Patient has the possibility to access the Patient Dashboard and Book Appointments form
+ - A User who is registered as doctor has the possibility to access the Doctor Dashboard 
+ - A User who is registered as doctor and as patient has access to both dashboards
+
+
+The navigation bar is present at the top of every page and includes all links to the various other pages.
+The My Account navigation link is a drop down menu which includes the Sign up and Log in links.
+When the user has logged in, the My Account drop down menu changes to display the user's name and a profile icon.
 
 ### Footer
+ - In the footer there are links to Facebook, Instagram, Twitter and Youtube
+ - By clicking on the links in the footer the user is redirected to the respective social media page in a separate tab 
 
 ### Home Page
+ - On the Home page basic information about site is presented 
+ - On the intro section information about the osteopathy practice is presented 
+ - On the treatment section information about osteopathic treamtent is presented 
+ - Below these section the user find links to book an appointment (if he is already logged in); if he is not logged in he gets redirected to the login form 
+ - Another link is for users who User who not yet registered as patient. In this cases they got redirected to the registration page
 
 ### Register Patient Page
+ - The Register Patient Page is a simple form to enter patient details
+ - By clicking register button he is registered as patient
+ - Afterwards he has access to patient dashboard and the book appointments form 
 
-### Request Appointment
+### Book Appointment
+ - On Book Appointment page a Patient can use the book appointment form the request an appointment
+ - The patient can select the doctor and enter the favorable time and date and the reason for his visit
+ - After clicking on "book" button an appointment request is created an submitted to the selected doctor
 
 ### Register Doctor
+ - By clicking on Register Doctor the user is getting redirected to admin login page
+ - Only admin user have the permission to register a new doctor 
+ - After entering the doctor credentials 
+ - There are two possibilities to register a new doctor: 1. Register New User as Doctor 2. Register Existing User as Doctor 
+ - By clicking 1. Register New User as Doctor a form is displayed to enter all data for a new user and the speciality of the doctor
+ - By clicking 2. Register Existing User as Doctor a list of existing user is displayed and a field to enter the speciality 
 
 ### Patient Dashboard
+- On Patient Dashbaord the patient details are displayed
+- Furthermore the Patient can view his appointment requests and his approved, rejected and canceled appointments 
+- Existing appointment requests and appointments can be managed here 
 
 ### Doctor Dashboard
+- On Doctor Dashbaord the doctor can view, approve or reject appointment requests a
+- Existing appointments can be canceled here as well 
 
 ### Edit Appointment
 
