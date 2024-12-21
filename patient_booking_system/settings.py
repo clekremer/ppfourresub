@@ -23,14 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-)_q@2db&ty#(#w7t#nh-of#dz(=30fyohabw8p%b-rwy^hp!y$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+#DEBUG=True
+
 
 ALLOWED_HOSTS = [
-    '8000-clekremer-ppfourresub-ygckzpxwzps.ws-eu116.gitpod.io',
+    '8000-clekremer-ppfourresub-ygckzpxwzps.ws-eu117.gitpod.io',
     'localhost',
     '127.0.0.1',
     'pp4patbook-9453e2a559a6.herokuapp.com',
@@ -107,9 +109,8 @@ WSGI_APPLICATION = 'patient_booking_system.wsgi.application'
 #}
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL", "postgresql://neondb_owner:UGXBrWO5j4oL@ep-dark-moon-a2y6jsfj.eu-central-1.aws.neon.tech/boney_herbs_elder_654816"))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -146,19 +147,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
+# URL for static files
 STATIC_URL = '/static/'
-#STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATICFILES_DIRS = [
-   # BASE_DIR / "static",
-   # os.path.join(BASE_DIR, 'static'),
-#]
-
+# Directories for static files during development
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-    # Add more directories here if needed
+    os.path.join(BASE_DIR, 'static'),
 ]
+
+# Directory for collected static files during deployment
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
