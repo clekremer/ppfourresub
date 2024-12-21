@@ -108,8 +108,12 @@ WSGI_APPLICATION = 'patient_booking_system.wsgi.application'
 #    }
 #}
 
+#DATABASES = {
+#    'default': dj_database_url.parse(os.environ.get("DATABASE_URL", "postgresql://neondb_owner:UGXBrWO5j4oL@ep-dark-moon-a2y6jsfj.eu-central-1.aws.neon.tech/boney_herbs_elder_654816"))
+#}
+
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL", "postgresql://neondb_owner:UGXBrWO5j4oL@ep-dark-moon-a2y6jsfj.eu-central-1.aws.neon.tech/boney_herbs_elder_654816"))
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 }
 
 # Password validation
