@@ -131,9 +131,20 @@ Wireframes were created with Balsamiq.
 
 ## Agile Methodology
 
-Github projects was used to manage agile development.
+Github projects was used to manage agile development. The project be found here: [Github project](https://github.com/users/clekremer/projects/6)
+
+Epics from User Eperience chapter were used as Milestones. For User Storie I created a template as Github Issue. User stories were linked with it´s parent Epic. In User stories acceptance criteria are defined, which needed to be fulfilled in order to complete the user story. 
+
 
 ## Data Model
+
+To cover the principles of object-based software development a decent and custom data model was used to fit the project purpose. 
+
+The diagram shows how the elements are related to eachother. 
+ - A User can be a one patient or one doctor or one patient and one doctor 
+ - The relation between Patient and Doctor to appointment is a one to many relation
+ - The appointment is linked to patient and doctor by foreign keys  
+
 
 ![Database Schema](docs/readme_images/datamodel.png)
 
