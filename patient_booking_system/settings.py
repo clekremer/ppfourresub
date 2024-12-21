@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)_q@2db&ty#(#w7t#nh-of#dz(=30fyohabw8p%b-rwy^hp!y$'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -107,9 +107,8 @@ WSGI_APPLICATION = 'patient_booking_system.wsgi.application'
 #}
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL", "postgresql://neondb_owner:UGXBrWO5j4oL@ep-dark-moon-a2y6jsfj.eu-central-1.aws.neon.tech/boney_herbs_elder_654816"))
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
-
 
 
 # Password validation
