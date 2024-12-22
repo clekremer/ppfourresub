@@ -156,42 +156,17 @@ Testing document and the testing results can be found [here](/TESTING.md)
 
 ### User Authentication
 
-As a Site User (Patient) I can register an account so that I can book/edit/cancel appointments.
+To use the booking system the User needs to register first as Patient or as Doctor or as both. So the system is protected by an authentication system. 
+After registration the User is able to login and has the permission to view his data and book, edit and cancel appointments.
 
-Acceptance Criteria:
-a. A register menu or link should be visible on the homepage.
-b. After clicking the menu / link the user should be taken to the register page.
-c. After filling in the details and clicking register button a new account should be created.
-d. I should then be notified that I have been logged in.
-
-Tasks:
-
-Install auth app and add to installed apps
-Add register link to navbar and home page
-Customise register patient form to HTML templates
-Create message to notify user of successful registered
-
-
-As a User, I can log in or log out in my account so that I can authenticate myself.
-
-Acceptance Criteria logged-out user:
-a. Log in option on the nav bar.
-b. By clicking login I should be taken to the log-in page.
-c. After entering the credentials and clicking login I should be logged in.
-d. A notificaiton should appear to confirm that I have been logged in successfully.
-e. If I enter the incorrect credentials I should receive feedback on what information was incorrectly entered.
-
-Acceptance Criteria logged in user
-a. When user clicks log out button he is getting logged out
-b. A notification appears that he has been logged out successfully.
-
-Tasks:
-
-Install auth and add to installed apps
-Add auth urls
-Add log in and log out links to navbar
-Customise login, logout HTML templates
-Create success messages for successful login/logout
+The authentication system based on the following implementation:
+- auth app added to the list installed Django apps
+- auth and login urls
+- registration link on navbar and home page
+- login and logout links to navbar
+- customised register patient form and register doctor forms in HTML templates
+- customised login, logout HTML templates
+- notification messages for registration, login and logout
 
 
 
@@ -306,20 +281,17 @@ The was deployed on Heroku by the following steps:
 - add DATABASE_URL in the Config Vars 
 - add DISABLE_COLLECTSTATIC = 1 in the Config Vars 
 
-### Prepare the env and settings.py file:
-- In GitPod workspace, create an env.py file 
-- Add the DATABASE_URL value and SECRET_KEY value to the env.py file 
-- Update the settings.py to import the env.py file and add SECRETKEY and DATABASE_URL file paths
+### Prepare the .env and settings.py file:
+- In GitPod workspace, create an .env file 
+- Add the DATABASE_URL value and SECRET_KEY value to the .env file 
+- Update the settings.py to import the .env file and add SECRETKEY and DATABASE_URL file paths
 - Comment out the default database configuration
 - Save files and make migrations
-- Add the STATIC files settings - the url, storage path, directory path, root path and default file storage path.
-- Link the file to the templates directory in Heroku.
-- Change the templates directory to TEMPLATES_DIR
+- Add the STATIC files settings - the url, storage path, directory path and root path 
 - Add Heroku to the ALLOWED_HOSTS list the format ['app_name.heroku.com', 'localhost']
 
 ### Create files / directories
 - Create requirements.txt file
-!!!- Create three directories in the main directory; media, storage and templates.???
 - Create a file named "Procfile" in the main directory and add the following: web: gunicorn project-name.wsgi
 
 
