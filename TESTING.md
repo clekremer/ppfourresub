@@ -101,17 +101,159 @@ No errors were found by testing all python files with [Pep8](http://pep8online.c
 
 ### Site Navigation
 
+| Element               | Action     | Expected Result                                                    | Pass/Fail |
+|-----------------------|------------|--------------------------------------------------------------------|-----------|
+| NavBar                |            |                                                                    |           | 
+| Home Link             | Click      | Redirect to home                                                   | Pass      |
+| Login Link            | Click      | Open login page and form                                           | Pass      |
+| Register Link         | Click      | Open Register Patient page and form                                | Pass      |
+| Register Doctor Link  | Click      | Open Register Doctor page and form                                 | Pass      |
+| logout status         | Display    | "You are not logged in" if no user is logged in                    | Pass      |
+| Patient Dashboard Link| Click      | Open Patient Dashbaord                                             | Pass      |
+| Book Appointment Link | Click      | Open Book Appointment page and form                                | Pass      |
+| Doctor Dashboard Link | Click      | Open Doctor Dashbaord                                              | Pass      |
+| Logout Link           | Click      | Will logout the current user and opens login page                  | Pass      |
+| login status          | Display    | "Welcome, User!" if a user is logged in                            | Pass      |
+|                       |            |                                                                    |           |
+| Mobile View           |            |                                                                    |           |
+| Hamburger Menu        | Responsive | Display when screen size reduces to medium size                    | Pass      |
+| Home Link             | Click      | Redirect to home                                                   | Pass      |
+| Login Link            | Click      | Open login page and form                                           | Pass      |
+| Register Link         | Click      | Open Register Patient page and form                                | Pass      |
+| Register Doctor Link  | Click      | Open Register Doctor page and form                                 | Pass      |
+| logout status         | Display    | "You are not logged in" if no user is logged in                    | Pass      |
+| Patient Dashboard Link| Click      | Open Patient Dashbaord                                             | Pass      |
+| Book Appointment Link | Click      | Open Book Appointment page and form                                | Pass      |
+| Doctor Dashboard Link | Click      | Open Doctor Dashbaord                                              | Pass      |
+| Logout Link           | Click      | Will logout the current user and opens login page                  | Pass      |
+| login status          | Display    | "Welcome, User!" if a user is logged in                            | Pass      |
+|                       |            |                                                                    |           |
+| Footer                |            |                                                                    |           |
+| All links             | Click      | Open correct scoial media platform in new tab                      | Pass      |
+
+### Home Page
+
+| Element                           | Action  | Expected Result                        | Pass/Fail |
+|-----------------------------------|---------|----------------------------------------|-----------|
+| Intro section                     | Display | Display intro about praxis             | Pass      |
+| Treatment section                 | Display | Show information about treatment       | Pass      |
+| "Appointment booking system" link | Click   | Open Book Appointment page and form    | Pass      |
+| "Register here to use ...." link  | Click   | Only visible if user in session        | Pass      |
+
 ### Register patient
+
+| Element               | Action                              | Expected                                  | Pass/Fail |
+|-----------------------|-------------------------------------| ------------------------------------------|-----------|
+|                       |                                     |                                           |           | 
+| Register Link         | Click                               | Open Register Patient page and form       | Pass      |
+| Username field        | Insert no username + click          | Form won´t submit + notification          | Pass      |
+| Username field        | Insert username + click             | Form will submit  + notification          | Pass      |
+| Email field           | Insert wrong email + click          | Form won´t submit + notification          | Pass      |
+| Email field           | Insert correct email + click        | Form will submit  + notification          | Pass      |
+| Password field        | Insert no pw + click                | Form won´t submit + notification          | Pass      |
+| Password field        | Insert pw + click                   | Form will submit + notification           | Pass      |
+| Phone field           | Insert no value + click             | Form won´t submit + notification          | Pass      |
+| Phone field           | Insert value + click                | Form will submit + notification           | Pass      |
+| Address field         | Insert no value + click             | Form won´t submit + notification          | Pass      |
+| Address field         | Insert value + click                | Form will submit + notification           | Pass      |
 
 ### Register doctor
 
+| Element                    | Action                              | Expected                                  | Pass/Fail |
+|----------------------------|-------------------------------------| ------------------------------------------|-----------|
+|                            |                                     |                                           |           | 
+| Register Doctor Link       | Click                               | Open admin login page                     | Pass      |
+| Username field             | Insert no admin username + click    | Form won´t submit + notification          | Pass      |
+| Username field             | Insert admin username + click       | Form will submit  + notification          | Pass      |
+| Password field             | Insert no admin pw + click          | Form won´t submit + notification          | Pass      |
+| Password field             | Insert admin pw + click             | Form will submit + notification           | Pass      |
+|                            |                                     |                                           |           |
+|Register Doctor Step1       |                                     |                                           |           |  
+|Proceed next step           | Click                               | Open Register Doctor Step2                | Pass      |
+|                            |                                     |                                           |           |
+|Register Doctor Step2       |                                     |                                           |           |
+|Register New User as Doctor | Click                               | Open Register New User as Doctor Page     | Pass      |
+|Register Existing User...   | Click                               | Open Register Existing User as Doctor Page| Pass      |
+|                            |                                     |                                           |           |  |Register New User as Doctor |                                     |                                           |           |  
+| Username field             | Insert no username + click          | Form won´t submit + notification          | Pass      |
+| Username field             | Insert username + click             | Form will submit  + notification          | Pass      |
+| Email field                | Insert wrong email + click          | Form won´t submit + notification          | Pass      |
+| Email field                | Insert correct email + click        | Form will submit  + notification          | Pass      |
+| Password field             | Insert no pw + click                | Form won´t submit + notification          | Pass      |
+| Password field             | Insert pw + click                   | Form will submit + notification           | Pass      |
+| Speciality field           | Insert no value + click             | Form won´t submit + notification          | Pass      |
+| Speciality field           | Insert value + click                | Form will submit + notification           | Pass      |
+|                            |                                     |                                           |           | 
+|                            |                                     |                                           |           | 
+| Register Existing User..   |                                     |                                           |           |  
+| Select User field          | Select user                         | Form will submit + notification           | Pass      |
+| Speciality field           | Insert no value + click             | Form won´t submit + notification          | Pass      |
+| Speciality field           | Insert value + click                | Form will submit + notification           | Pass      |
+
+
 ### Login
+
+| Element               | Action                              | Expected                                  | Pass/Fail |
+|-----------------------|-------------------------------------| ------------------------------------------|-----------|
+|                       |                                     |                                           |           | 
+| Login Link            | Click                               | Open Login page and form                  | Pass      |
+| Username field        | Insert no username + click          | Form won´t submit + notification          | Pass      |
+| Username field        | Insert username + click             | Form will submit  + notification          | Pass      |
+| Password field        | Insert no pw + click                | Form won´t submit + notification          | Pass      |
+| Password field        | Insert pw + click                   | Form will submit + notification           | Pass      |
+
 
 ### Book appointment
 
+
+| Element               | Action                              | Expected                                  | Pass/Fail |
+|-----------------------|-------------------------------------| ------------------------------------------|-----------|
+|                       |                                     |                                           |           | 
+| Book Appointment Link | Click                               | Open Book Appointmnent page and form      | Pass      |
+| Doctor field          | Select no doctor + click            | Form won´t submit + notification          | Pass      |
+| Doctor field          | Select doctor + click               | Form will submit  + notification          | Pass      |
+| Date field            | Select no date + click              | Form won´t submit + notification          | Pass      |
+| Date field            | Insert date + click                 | Form will submit  + notification          | Pass      |
+| Time field            | Insert no time + click              | Form won´t submit + notification          | Pass      |
+| Time field            | Insert time + click                 | Form will submit + notification           | Pass      |
+| Reason field          | Insert no value + click             | Form won´t submit + notification          | Pass      |
+| Reason field          | Insert value + click                | Form will submit + notification           | Pass      |
+| All fields            | Insert / Select values + click      | Appointment is created + notification     | Pass      |
+
+
 ### Manage appointments as patient
 
+
+| Element               | Action                              | Expected                                  | Pass/Fail |
+|-----------------------|-------------------------------------| ------------------------------------------|-----------|
+|                       |                                     |                                           |           | 
+| Patient Dashboard Link| Click                               | Open Patient Dashboard Page               | Pass      |
+| Pending Appointment   | Click cancel button                 | Appointment is moved into cancel status   | Pass      |
+| Approved Appointment  | Click cancel button                 | Appointment is moved into cancel status   | Pass      |
+| Pending Appointment   | Click edit button                   | Open Edit Appointment form                | Pass      |
+| Rejected Appointment  | Click edit button                   | Open Edit Appointment form                | Pass      |
+| Approved Appointment  | Click edit button                   | Open Edit Appointment form                | Pass      |
+|                                                                                                                     |
+| Edit Appointment form                                                                                               |
+| Date field            | Select no date + click              | Form won´t submit + notification          | Pass      |
+| Date field            | Insert date + click                 | Form will submit  + notification          | Pass      |
+| Time field            | Insert no time + click              | Form won´t submit + notification          | Pass      |
+| Time field            | Insert time + click                 | Form will submit + notification           | Pass      |
+| All fields            | Insert / Select values + click      | Appointment is edited + notification      | Pass      |
+
 ### Manage appointments as doctor
+
+
+| Element               | Action                              | Expected                                  | Pass/Fail |
+|-----------------------|-------------------------------------| ------------------------------------------|-----------|
+|                       |                                     |                                           |           | 
+| Doctor Dashboard Link | Click                               | Open Doctor Dashboard Page                | Pass      |
+| Pending Appointment   | Select approve status + click       | Appointment is moved into approved status | Pass      |
+| Pending Appointment   | Select reject status + click        | Appointment is moved into rejected status | Pass      |
+| Rejected Appointment  | Click cancel button                 | Appointment is canceled and removed       | Pass      |
+| Approved Appointment  | Click cancel button                 | Appointment is canceled and removed       | Pass      |
+
+
 
 ## Bugs
 
