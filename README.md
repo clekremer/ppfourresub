@@ -149,7 +149,6 @@ The diagram shows how the elements are related to eachother.
 ![Database Schema](docs/readme_images/datamodel.png)
 
 ## Testing
-
 Testing document and the testing results can be found [here](/TESTING.md)
 
 
@@ -157,13 +156,49 @@ Testing document and the testing results can be found [here](/TESTING.md)
 
 ### User Authentication
 
+As a Site User (Patient) I can register an account so that I can book/edit/cancel appointments.
+
+Acceptance Criteria:
+a. A register menu or link should be visible on the homepage.
+b. After clicking the menu / link the user should be taken to the register page.
+c. After filling in the details and clicking register button a new account should be created.
+d. I should then be notified that I have been logged in.
+
+Tasks:
+
+Install auth app and add to installed apps
+Add register link to navbar and home page
+Customise register patient form to HTML templates
+Create message to notify user of successful registered
+
+
+As a User, I can log in or log out in my account so that I can authenticate myself.
+
+Acceptance Criteria logged-out user:
+a. Log in option on the nav bar.
+b. By clicking login I should be taken to the log-in page.
+c. After entering the credentials and clicking login I should be logged in.
+d. A notificaiton should appear to confirm that I have been logged in successfully.
+e. If I enter the incorrect credentials I should receive feedback on what information was incorrectly entered.
+
+Acceptance Criteria logged in user
+a. When user clicks log out button he is getting logged out
+b. A notification appears that he has been logged out successfully.
+
+Tasks:
+
+Install auth and add to installed apps
+Add auth urls
+Add log in and log out links to navbar
+Customise login, logout HTML templates
+Create success messages for successful login/logout
+
+
 
 ### Form Validation
-
 Empty or incorrect data cannot not be submitted in any form. I this case a notification will appear to inform the user which kind of data he has to add or change. 
 
 ### Database Security
-
 CSRF tokens were used for all forms on this site. 
 
 Database url and secret key were added in the .env file to ensure  the database security. 
@@ -173,7 +208,6 @@ Database url and secret key were added in the .env file to ensure  the database 
 ## Features
 
 ### Header / Navigation Bar 
-
  - the navigation bar is visible on every page 
  - Users which are not logged in will see this view:
  - In this case they have the possibility to log in or the register as a new patient or doctor 
@@ -222,22 +256,44 @@ When the user has logged in, the My Account drop down menu changes to display th
 - Existing appointment requests and appointments can be managed here 
 
 ### Doctor Dashboard
-- On Doctor Dashbaord the doctor can view, approve or reject appointment requests a
+- On Doctor Dashbaord the doctor can view, approve or reject appointment requests 
 - Existing appointments can be canceled here as well 
 
 ### Edit Appointment
+- As a Patient I can edit existing appointments and appointment request so that I can change date, time and reason for my appointments
+- On patient dashboard patients can view their appointments and click on edit button in order to modify date, time and reason
+- After clicking save changes button the appointments are moved in pending status again, so that a doctor has to answer on them again
+- A notifcation appears that the appointment was updated successfully
 
 ### Cancel Appointment
+#### Cancel Appointment as a Patient
+ - As a Patient I can cancel 'appointment requests' and 'approved appointments', so that I cancel appointments when I don´t need them anymore
+ - On patient dashboard a patient can view approved and pending appointments
+ - By clicking on cancel button he can cancel them
+ - A notification appears that the appointment was cancelled successfully
+ - cancelled appointments are move to the cancelled appointments table
+
+#### Cancel appointment as a doctor
+ - As a Doctor I can cancel an already answered appointment request when I cannot attend them.
+ - On doctor dashboard a doctor can view answered appointment requests
+ - By clicking on cancel button he can cancel them
+ - A notification appears that the appointment was cancelled successfully
+ - Cancelled appointments are move to the cancelled appointments table on patient dashboard
 
 ### Approve Appointment
+ - As a Doctor I can approve appointment request so that I can confirm an appointment to a patient.
+ - On doctor dashbaord a doctor can view pending appointment requestsb by selecting "approve" status and clicking on update button he can approve an appointment requests
+ - A notification appears that the appointment was approved successfully
+ - An updated appointment request is move into the answered appointment request list
 
 ### Reject Appointment
-
+ - As a Doctor I can reject appointment request so that I can tell the patient that he needs to suggest another date and time.
+ - On doctor dashbaord a doctor can view pending appointment requests by selecting "reject" status and clicking on update button he can reject an appointment request
+ - A notification appears that the appointment was rejected successfully
+ - An updated appointment request is move into the answered appointment request list
 
 ## Deployment - Heroku
-
 The was deployed on Heroku by the following steps: 
-
 
 ### Create the Heroku App:
 - Log in to [Heroku](https://dashboard.heroku.com/apps) 
@@ -249,7 +305,6 @@ The was deployed on Heroku by the following steps:
 ### Setting tab:
 - add DATABASE_URL in the Config Vars 
 - add DISABLE_COLLECTSTATIC = 1 in the Config Vars 
-
 
 ### Prepare the env and settings.py file:
 - In GitPod workspace, create an env.py file 
@@ -276,7 +331,6 @@ The was deployed on Heroku by the following steps:
 
 
 ## Languages
-
 - Python
 - HTML
 - CSS
