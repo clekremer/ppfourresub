@@ -119,13 +119,15 @@ form button.cancel-btn {
     width: 120px; /* Fixed width for Edit and Cancel buttons */
     text-align: center;
     margin: 5px; /* Ensure spacing between buttons */
+    display: inline-block; /* Prevent flexbox stretching */
+    flex: none; /* Ensure no flex growth */
+    box-sizing: border-box; /* Ensure width includes padding and border */
 }
 
-button.edit-btn:hover,
-button.cancel-btn:hover,
-form button.edit-btn:hover,
-form button.cancel-btn:hover {
-    background-color: #5ea1a3; /* Same hover color for consistency */
+/* Override default submit button behavior */
+form button[type="submit"] {
+    width: 120px !important;
+    display: inline-block;
 }
 
 /* Form Styles */
@@ -138,7 +140,7 @@ form {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    align-items: left;
+    align-items: flex-start;
 }
 
 form input,
