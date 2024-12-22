@@ -94,8 +94,8 @@ header nav ul li a:hover {
 button,
 form button,
 .btn {
-    background-color: #7acacc !important; /* Set button color */
-    color: #fff !important; /* Ensure text is white */
+    background-color: #7acacc !important;
+    color: #fff !important;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -108,7 +108,24 @@ form button,
 button:hover,
 form button:hover,
 .btn:hover {
-    background-color: #5ea1a3 !important; /* Slightly darker shade on hover */
+    background-color: #5ea1a3 !important;
+}
+
+/* Edit and Cancel Button Consistent Width */
+button.edit-btn,
+button.cancel-btn,
+form button.edit-btn,
+form button.cancel-btn {
+    width: 120px; /* Fixed width for Edit and Cancel buttons */
+    text-align: center;
+    margin: 5px; /* Ensure spacing between buttons */
+}
+
+button.edit-btn:hover,
+button.cancel-btn:hover,
+form button.edit-btn:hover,
+form button.cancel-btn:hover {
+    background-color: #5ea1a3; /* Same hover color for consistency */
 }
 
 /* Form Styles */
@@ -250,9 +267,8 @@ footer {
 
 /* Default: Hide nav-toggle button on larger screens */
 .nav-toggle {
-    display: none; /* Hidden by default on larger screens */
+    display: none;
 }
-
 
 @media (max-width: 768px) {
     .nav-menu {
