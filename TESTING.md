@@ -73,33 +73,19 @@ Here the doctor has the possibility to react on the appointment request. He can 
 
 The HTML pages were tested with [W3C HTML Validator](https://validator.w3.org/). with the following results:
 
-
-| Page                           | Logged Out | Logged In |
-|----------------------          |------------|-----------|
-| bookings.html                  | N/A        | Note 1    |
-| patient.html                   | No errors  | No errors |
-| book.html                      | No errors  | No errors |
-| doctor_dashboard.html          | N/A        | No errors |
-| login.html                     | N/A        | No errors |
-| index.html                     | No errors  | No errors |
-| register_patient.html          | N/A        | No errors |
-| admin.html                     | N/A        | No errors |
-| register_doctor_step1.html     | N/A        | No errors |
-| register_doctor_step1.html     | N/A        | No errors |
-| register_doctor_new_user.html  | No errors  | No errors |
-| register_doctor_existing_user  | N/A        | No errors |
-| 400.html                       | No errors  | No errors |
-| 403.html                       | N/A        | No errors |
-| 404.html                       | No errors  | No errors |
-| 500.html                       | No errors  | No errors |
+![HTML Validation Test](docs/readme_images/html_validator.PNG)
 
 ### CSS
 
 No errors were found by testing the CSS file with [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
 
+![CSS Validation Test](docs/readme_images/css_validator.PNG)
+
 ### Javascript
 
 No errors were found by testen the js file with [Jshint](https://jshint.com/) 
+
+![JavaScript Test](docs/readme_images/js_validator.PNG)
 
 ### Python
 
