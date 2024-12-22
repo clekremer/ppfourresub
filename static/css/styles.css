@@ -121,7 +121,7 @@ form {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    align-items: center;
+    align-items: left;
 }
 
 form input,
@@ -247,6 +247,12 @@ footer {
 .nav-menu li {
     margin: 0 10px;
 }
+
+/* Default: Hide nav-toggle button on larger screens */
+.nav-toggle {
+    display: none; /* Hidden by default on larger screens */
+}
+
 
 @media (max-width: 768px) {
     .nav-menu {
