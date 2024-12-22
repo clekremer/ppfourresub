@@ -1,38 +1,39 @@
 /* Global styles */
 html, body {
-    height: 100%; /* Ensure the body takes up the full height of the viewport */
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
     display: flex;
-    flex-direction: column; /* Set the body to flexbox to push the footer down */
+    flex-direction: column;
 }
 
-
+/* Notification */
 .notification {
-    position: fixed; /* Anchor it to the viewport */
-    top: 10px; /* Distance from the top */
-    right: 10px; /* Distance from the right */
-    background-color: #007bff; /* Blue background for visibility */
-    color: #ffffff; /* White text color for contrast */
-    padding: 10px 15px; /* Internal spacing */
-    border-radius: 5px; /* Rounded corners for a modern look */
-    font-weight: bold; /* Emphasize the text */
-    z-index: 1000; /* Ensure it appears above other elements */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Shadow for depth */
-    max-width: 90%; /* Prevent it from being too wide on smaller screens */
-    text-align: center; /* Center the text inside the box */
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #7acacc;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    text-align: center;
 }
 
-/* Ensure main content expands to push footer down */
+/* Main content */
 main {
     flex: 1;
     padding: 20px;
     background-color: #fff;
 }
 
+/* Header */
 header {
     background-color: #fff;
     color: #fff;
@@ -40,14 +41,14 @@ header {
 }
 
 header nav {
-    background-color: white; /* Updated to white background */
+    background-color: white;
 }
 
 header nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    text-align: center; /* Center align the navigation */
+    text-align: center;
 }
 
 header nav ul li {
@@ -56,24 +57,17 @@ header nav ul li {
 }
 
 header nav ul li a {
-    color: grey; /* Updated to grey font color */
+    color: grey;
     text-decoration: none;
     padding: 5px 10px;
 }
 
 header nav ul li a:hover {
-    background-color: #555;
-    color: #fff; /* Optional: changes font color to white on hover */
+    background-color: #7acacc;
+    color: #fff;
 }
 
-/* Ensure main content expands to push footer down */
-main {
-    flex: 1; /* Flex to fill available space */
-    padding: 20px;
-    background-color: #fff; /* Updated to match the header background color */
-}
-
-/* Message styles */
+/* Messages */
 .messages {
     list-style: none;
     padding: 0;
@@ -86,46 +80,7 @@ main {
     border-radius: 5px;
 }
 
-.messages .alert,
-.messages .success,
-.messages .warning,
-.messages .alert-success,
-.messages .alert-warning,
-.messages .alert-info,
-.messages .alert-danger {
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-
-.messages .alert-success,
-.messages .success {
-    background-color: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
-}
-
-.messages .alert-warning,
-.messages .warning {
-    background-color: #fff3cd;
-    border-color: #ffeeba;
-    color: #856404;
-}
-
-.messages .alert-info {
-    background-color: #d1ecf1;
-    border-color: #bee5eb;
-    color: #0c5460;
-}
-
-.messages .alert-danger {
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    color: #721c24;
-}
-
-/* Form styles */
+/* Form Container */
 .container {
     max-width: 600px;
     margin: 50px auto;
@@ -135,105 +90,92 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+/* Global Button Styles */
+button,
+form button,
+.btn {
+    background-color: #7acacc !important; /* Set button color */
+    color: #fff !important; /* Ensure text is white */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
     text-align: center;
-    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
 }
 
+button:hover,
+form button:hover,
+.btn:hover {
+    background-color: #5ea1a3 !important; /* Slightly darker shade on hover */
+}
+
+/* Form Styles */
 form {
     display: flex;
     flex-direction: column;
+    width: 35%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
 }
 
-form fieldset {
-    border: none;
-    margin-bottom: 20px;
-}
-
-form .form-group {
+form input,
+form select,
+form textarea {
+    width: 90%;
     margin-bottom: 15px;
-}
-
-form .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-form .form-group input,
-form .form-group select {
-    width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 16px;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
-form .btn {
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
+form button {
+    width: 50%;
+    margin-top: 10px;
 }
 
-form .btn:hover {
-    background-color: #0056b3;
-}
-
-/* Footer styles */
+/* Footer */
 footer {
     background-color: #bac4cd;
     padding: 20px 0;
     text-align: center;
-    margin-top: auto; /* Ensures footer stays at the bottom */
-    position: relative; /* Ensures it stays above absolutely positioned elements */
+    margin-top: auto;
+    position: relative;
 }
 
 #social-networks {
     display: flex;
-    justify-content: space-around; /* Spread items equally */
-    align-items: center; /* Center-align items vertically */
-    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
     list-style: none;
-    padding: 20px 0; /* Consistent vertical padding */
-    margin: 0; /* Remove extra margin */
-    gap: 15px; /* Add spacing between items */
+    padding: 20px 0;
+    margin: 0;
+    gap: 15px;
 }
 
 #social-networks li {
-    margin: 0; /* Remove fixed margins */
-    flex: 1; /* Allow items to grow and spread */
-    text-align: center; /* Center-align individual items */
-    max-width: 80px; /* Optional: limit the size of each item */
+    text-align: center;
+    max-width: 80px;
 }
 
 #social-networks i {
-    font-size: 1.6rem; /* Maintain large icon size */
-    color: #ffffff; /* Ensure icons are visible */
-    transition: color 0.3s ease; /* Optional: smooth hover effect */
+    font-size: 1.6rem;
+    color: #ffffff;
+    transition: color 0.3s ease;
 }
 
 #social-networks i:hover {
-    color: #007bff; /* Highlight color on hover */
+    color: #007bff;
 }
 
-/* Small screen adjustments */
-@media (max-width: 768px) {
-    #social-networks {
-        flex-direction: row; /* Keep items in a row for small screens */
-        justify-content: space-evenly; /* Ensure equal spacing */
-    }
-
-    #social-networks li {
-        flex: none; /* Remove growth on small screens */
-        max-width: none; /* Allow items to adjust naturally */
-    }
-}
-
-/* Styles for the accordion */
+/* Accordion */
 .accordion {
     background-color: #f1f1f1;
     border: 1px solid #ccc;
@@ -245,7 +187,8 @@ footer {
     transition: background-color 0.3s ease;
 }
 
-.active, .accordion:hover {
+.accordion:hover,
+.active {
     background-color: #ccc;
 }
 
@@ -256,31 +199,28 @@ footer {
     background-color: white;
 }
 
-/* The Modal (background) */
+/* Modal */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
     padding-top: 60px;
 }
 
-/* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; /* 15% from the top and centered */
+    margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 35%;
 }
 
-/* The Close Button */
 .close {
     color: #aaa;
     float: right;
@@ -295,73 +235,48 @@ footer {
     cursor: pointer;
 }
 
-/* Navigation styles */
+/* Navigation */
 .nav-menu {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    flex-direction: row; /* Default for larger screens */
-    justify-content: center; /* Center align for desktop */
-    position: relative; /* Prevent overlap with other elements */
+    justify-content: center;
 }
 
 .nav-menu li {
     margin: 0 10px;
 }
 
-/* Navigation styles for small screens */
 @media (max-width: 768px) {
     .nav-menu {
-        display: none; /* Hidden by default on small screens */
-        flex-direction: column; /* Stack items vertically */
+        display: none;
+        flex-direction: column;
         position: absolute;
-        top: 60px; /* Below the header */
+        top: 60px;
         left: 0;
         width: 100%;
-        background-color: #fff; /* Match background */
+        background-color: #fff;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         z-index: 1000;
     }
 
     .nav-menu.active {
-        display: flex; /* Show menu when toggled */
-    }
-
-    .nav-menu li {
-        margin: 10px 0;
-        text-align: center; /* Center align text for small screens */
+        display: flex;
     }
 
     .nav-toggle {
-        display: block; /* Ensure toggle button is visible */
-    }
-}
-
-/* Hide toggle button on larger screens */
-.nav-toggle {
-    display: none; /* Hidden by default */
-}
-
-/* Show the toggle button only on small screens */
-@media (max-width: 768px) {
-    .nav-toggle {
-        display: block; /* Visible for small screens */
-        background: none;
-        border: none;
+        display: block;
         font-size: 1.5rem;
         cursor: pointer;
         padding: 10px;
         color: #333;
     }
+}
 
-    .nav-toggle:focus {
-        outline: none; /* Remove focus outline */
-    }
-    .notification {
-        top: 5px; /* Reduce space from the top */
-        right: 5px; /* Reduce space from the right */
-        padding: 8px 10px; /* Adjust padding for smaller screens */
-        font-size: 0.9rem; /* Slightly smaller font size */
-    }
+.notification {
+    top: 5px;
+    right: 5px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
 }
