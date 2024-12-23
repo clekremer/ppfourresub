@@ -145,7 +145,31 @@ form button[type="submit"] {
 #doctor_cancel_form, 
 #doctor_update_form {
     padding: 0%;
+    margin: 0%;
+    width: fit-content;
 }  
+
+#doctor_update_form {
+    width: fit-content;
+}
+
+#doctor_cancel_form, #doctor_update_form {
+    padding: 0%;
+    margin: 0%;
+}
+
+#doctor_status {
+    margin: 0%;
+    width: -webkit-fill-available;
+}
+
+button#doctor_update {
+    margin: 0%;
+}
+
+#doctor_cancel {
+    margin: auto;
+}
 
 /* Form Styles */
 form {
