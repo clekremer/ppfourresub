@@ -16,10 +16,8 @@ for (var i = 0; i < acc.length; i++) {
 var modal = document.getElementById("editModal");
 
 // Function to open the modal and fetch data dynamically
-function openModal(id, urlTemplate) {
-    var url = urlTemplate.replace('0', id); // Replace the placeholder with the actual appointment ID
-
-    fetch(url)
+function openModal(id, detailsUrl, editUrl) {
+    fetch(detailsUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch appointment data');
@@ -33,15 +31,15 @@ function openModal(id, urlTemplate) {
             var editReason = document.getElementById('editReason');
 
             if (editForm && editDate && editTime && editReason) {
-                editForm.action = url;
-                // Ensure date is properly formatted (ISO format: YYYY-MM-DD)
-                var formattedDate = new Date(data.date).toISOString().split('T')[0];
-                editDate.value = formattedDate;
+                editForm.action = editUrl.replace('0', id); // Set edit action dynamically
+                editDate.value = data.date; // ISO format from backend
                 editTime.value = data.time;
                 editReason.value = data.reason;
             }
 
-            modal.style.display = 'block';
+            if (modal) {
+                modal.style.display = 'block';
+            }
         })
         .catch(error => {
             console.error('Error fetching appointment data:', error);
@@ -51,13 +49,15 @@ function openModal(id, urlTemplate) {
 
 // Function to close the modal
 function closeModal() {
-    modal.style.display = "none";
+    if (modal) {
+        modal.style.display = "none";
+    }
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+        closeModal();
     }
 }
 
@@ -75,7 +75,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
-    navToggle.addEventListener('click', function () {
-        navMenu.classList.toggle('active');
-    });
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+            navMenu.classList.toggle('active');
+        });
+    }
 });
