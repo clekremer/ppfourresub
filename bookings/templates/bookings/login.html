@@ -38,8 +38,8 @@
         </nav>
     </header>
     <main>
-    <h1>Login</h1>
     <form method="post">
+        <h2>Login</h2>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Login</button>
