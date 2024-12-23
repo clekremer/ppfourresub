@@ -28,6 +28,9 @@ def book_appointment(request):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             appointment = form.save(commit=False)
+            if appointment.date < date.today():
+                messages.error(request, 'The appointment date cannot be in the past.')
+                return redirect('book_appointment')
             appointment.patient = request.user.patient
             appointment.save()
             messages.success(request, 'Appointment booked successfully.')
@@ -204,15 +207,22 @@ def edit_appointment(request, appointment_id):
     if request.method == 'POST':
         form = EditAppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
+            if form.cleaned_data['date'] < date.today():
+                messages.error(request, 'The appointment date cannot be in the past.')
+                return redirect('edit_appointment', appointment_id=appointment_id)
             appointment = form.save(commit=False)
             appointment.status = 'pending'
             appointment.save()
             messages.success(request, 'Appointment updated successfully.')
             return redirect('patient_detail')
-        else:
-            messages.error(request, 'Failed to update appointment. Please correct the errors.')
+    else:
+        form = EditAppointmentForm(instance=appointment)
 
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+    return render(request, 'bookings/edit_appointment.html', {
+        'form': form,
+        'appointment': appointment
+    })
+
 
 @login_required
 def patient_detail(request):

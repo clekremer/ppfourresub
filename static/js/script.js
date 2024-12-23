@@ -37,6 +37,34 @@ window.onclick = function(event) {
     }
 }
 
+// Prevent selecting past dates in all date inputs on page load
+document.addEventListener('DOMContentLoaded', function () {
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    const today = new Date().toISOString().split('T')[0];
+    dateInputs.forEach(input => {
+        input.setAttribute('min', today);
+    });
+});
+
+// Prepopulate Edit Appointment Modal
+function openModal(id, date, time, reason, urlTemplate) {
+    var url = urlTemplate.replace('0', id);  // Replace placeholder with actual appointment ID
+    var editForm = document.getElementById('editForm');
+    var editDate = document.getElementById('editDate');
+    var editTime = document.getElementById('editTime');
+    var editReason = document.getElementById('editReason');
+
+    if (editForm && editDate && editTime && editReason) {
+        editForm.action = url;
+        editDate.value = date;
+        editTime.value = time;
+        editReason.value = reason;
+    }
+
+    modal.style.display = 'block';
+}
+
+// Navigation menu toggle
 document.addEventListener('DOMContentLoaded', function () {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
