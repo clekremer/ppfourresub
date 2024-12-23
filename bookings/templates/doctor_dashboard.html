@@ -52,7 +52,7 @@
     {% endif %}
     
     <h2>Pending Appointment Requests</h2>
-    <ul>
+    <ul id=ul_doctor>
         {% if pending_appointments %}
             {% for appointment in pending_appointments %}
                 <li>
@@ -78,7 +78,7 @@
     </ul>
 
     <h2>Answered Appointment Requests</h2>
-    <ul>
+    <ul id=ul_doctor>
         {% if answered_appointments %}
             {% for appointment in answered_appointments %}
                 <li>
