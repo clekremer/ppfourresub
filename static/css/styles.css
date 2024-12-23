@@ -155,6 +155,10 @@ form {
     align-items: flex-start;
 }
 
+#cancel-form {
+    padding: 0;
+}
+
 form input,
 form select,
 form textarea {

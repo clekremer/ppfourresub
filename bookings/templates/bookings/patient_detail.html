@@ -67,10 +67,10 @@
                         <strong>Time:</strong> {{ appointment.time }}<br>
                         <strong>Reason:</strong> {{ appointment.reason }}<br>
                         <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                        <button onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' 0 %}')">Edit</button>
-                        <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
+                        <button id="edit-btn" onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' 0 %}')">Edit</button>
+                        <form id="cancel-form" method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit">Cancel</button>
+                            <button id="cancel-btn" type="submit">Cancel</button>
                         </form>
                     </li>
                 {% endfor %}
@@ -97,7 +97,7 @@
                                         <button id="edit-btn" onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' appointment.id %}')">Edit</button>
                                     {% endif %}
                                     {% if appointment.status in 'approved,pending' %}
-                                        <form method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
+                                        <form id="cancel-form" method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
                                             {% csrf_token %}
                                             <button id="cancel-btn" type="submit">Cancel</button>
                                         </form>
