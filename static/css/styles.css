@@ -300,7 +300,7 @@ footer {
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 100%;
+    width: 35%;
 }
 
 #editForm {
@@ -365,9 +365,9 @@ footer {
 }
 
 #editModal .modal-content {
-    width: 35%;
+    width: 100%;
 }
 
 #editForm {
-    width: 35%;
+    width: 80%;
 }
