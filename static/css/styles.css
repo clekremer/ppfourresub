@@ -10,6 +10,11 @@ html, body {
     flex-direction: column;
 }
 
+/* Remove bullets */
+ul {
+    list-style-type: none; 
+}
+
 /* Notification */
 .notification {
     position: fixed;
