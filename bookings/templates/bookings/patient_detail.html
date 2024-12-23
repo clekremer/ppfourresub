@@ -67,7 +67,12 @@
                         <strong>Time:</strong> {{ appointment.time }}<br>
                         <strong>Reason:</strong> {{ appointment.reason }}<br>
                         <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                        <button id="edit-btn" onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' 0 %}')">Edit</button>
+                        <button id="edit-btn" 
+                                onclick="openModal({{ appointment.id }}, 
+                                                   '{% url 'get_appointment_details' appointment.id %}', 
+                                                   '{% url 'edit_appointment' 0 %}')">
+                            Edit
+                        </button>
                         <form id="cancel-form" method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
                             {% csrf_token %}
                             <button id="cancel-btn" type="submit">Cancel</button>
@@ -94,7 +99,12 @@
                                     <strong>Reason:</strong> {{ appointment.reason }}<br>
                                     <strong>Status:</strong> {{ appointment.get_status_display }}<br>
                                     {% if appointment.status != 'canceled' %}
-                                        <button id="edit-btn" onclick="openModal({{ appointment.id }}, '{{ appointment.date }}', '{{ appointment.time }}', '{{ appointment.reason }}', '{% url 'edit_appointment' appointment.id %}')">Edit</button>
+                                    <button id="edit-btn" 
+                                    onclick="openModal({{ appointment.id }}, 
+                                                       '{% url 'get_appointment_details' appointment.id %}', 
+                                                       '{% url 'edit_appointment' appointment.id %}')">
+                                    Edit
+                                    </button>
                                     {% endif %}
                                     {% if appointment.status in 'approved,pending' %}
                                         <form id="cancel-form" method="post" action="{% url 'patient_cancel_appointment' appointment.id %}" style="display:inline;">
@@ -118,11 +128,11 @@
                 <h2>Edit Appointment</h2>
                 <form id="editForm" method="post" action="">
                     {% csrf_token %}
-                    <label for="date">Date:</label>
+                    <label for="editDate">Date:</label>
                     <input type="date" id="editDate" name="date" required><br>
-                    <label for="time">Time:</label>
+                    <label for="editTime">Time:</label>
                     <input type="time" id="editTime" name="time" required><br>
-                    <label for="reason">Reason:</label>
+                    <label for="editReason">Reason:</label>
                     <textarea id="editReason" name="reason" required></textarea><br>
                     <button type="submit">Save changes</button>
                 </form>
