@@ -58,7 +58,7 @@
         <p><strong>Sex:</strong> {{ patient.get_sex_display }}</p>
         
         <h2>Pending Appointment Requests</h2>
-        <ul>
+        <ul id="ul_patient">
             {% if pending_appointments %}
                 {% for appointment in pending_appointments %}
                     <li>
@@ -85,7 +85,7 @@
                 {% for status, appointments in appointments_by_status.items %}
                     <button class="accordion">{{ status|title }}</button>
                     <div class="panel">
-                        <ul>
+                        <ul id="ul_patient">
                             {% for appointment in appointments %}
                                 <li>
                                     <strong>Doctor:</strong> {{ appointment.doctor.user.username }}<br>
