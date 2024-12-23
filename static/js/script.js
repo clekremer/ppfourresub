@@ -34,9 +34,11 @@ function openModal(id, urlTemplate) {
 
             if (editForm && editDate && editTime && editReason) {
                 editForm.action = url;
-                editDate.value = data.date;  // Populate date
-                editTime.value = data.time;  // Populate time
-                editReason.value = data.reason;  // Populate reason
+                // Ensure date is properly formatted (ISO format: YYYY-MM-DD)
+                var formattedDate = new Date(data.date).toISOString().split('T')[0];
+                editDate.value = formattedDate;
+                editTime.value = data.time;
+                editReason.value = data.reason;
             }
 
             modal.style.display = 'block';
