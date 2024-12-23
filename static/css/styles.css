@@ -373,6 +373,10 @@ footer {
     width: 80%;
 }
 
+#appointment_form {
+    width: 90%;
+}
+
 /* Ensure it uses 35% for larger screens */
 
 @media (min-width: 768px) {

@@ -48,7 +48,7 @@
         </ul>
     {% endif %}
     
-    <form method="post">
+    <form id="appointment_form" method="post">
         <h2>Book Appointment</h2>
         {% csrf_token %}
         {{ form.as_p }}
