@@ -217,6 +217,10 @@ form button {
     align-content: space-around;
 }
 
+#ul_doctor li {
+    margin: 5px; /* Adds space around each child <li> */
+}
+
 /* Footer */
 footer {
     background-color: #bac4cd;
