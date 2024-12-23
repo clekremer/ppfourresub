@@ -118,10 +118,22 @@ form button.edit-btn,
 form button.cancel-btn {
     width: 120px; /* Fixed width for Edit and Cancel buttons */
     text-align: center;
-    margin: 5px; /* Ensure spacing between buttons */
+    margin: 5px; /* Uniform spacing between buttons */
     display: inline-block; /* Prevent flexbox stretching */
-    flex: none; /* Ensure no flex growth */
-    box-sizing: border-box; /* Ensure width includes padding and border */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Specific IDs for Edit and Cancel Buttons */
+#edit-btn {
+    width: 120px;
+    text-align: center;
+    margin: 5px;
+}
+
+#cancel-btn {
+    width: 120px;
+    text-align: center;
+    margin: 5px;
 }
 
 /* Override default submit button behavior */
@@ -267,7 +279,6 @@ footer {
     margin: 0 10px;
 }
 
-/* Default: Hide nav-toggle button on larger screens */
 .nav-toggle {
     display: none;
 }
@@ -296,11 +307,4 @@ footer {
         padding: 10px;
         color: #333;
     }
-}
-
-.notification {
-    top: 5px;
-    right: 5px;
-    padding: 8px 10px;
-    font-size: 0.9rem;
 }
