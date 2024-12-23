@@ -212,13 +212,12 @@ form button {
 
 #ul_doctor {
     display: flex;
-    justify-content: space-evenly;
     flex-wrap: wrap;
     align-content: space-around;
 }
 
 #ul_doctor li {
-    margin: 5px; /* Adds space around each child <li> */
+    margin: 10px; /* Adds space around each child <li> */
 }
 
 /* Footer */
