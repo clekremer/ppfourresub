@@ -1,7 +1,7 @@
 // JavaScript for the accordion functionality
 var acc = document.getElementsByClassName("accordion");
 for (var i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
+    acc[i].addEventListener("click", function () {
         this.classList.toggle("active");
         var panel = this.nextElementSibling;
         if (panel.style.display === "block") {
@@ -15,14 +15,36 @@ for (var i = 0; i < acc.length; i++) {
 // Get the modal
 var modal = document.getElementById("editModal");
 
-// Function to open the modal and populate the form
-function openModal(id, date, time, reason, urlTemplate) {
-    var url = urlTemplate.replace('0', id);  // Replace the placeholder with the actual appointment id
-    document.getElementById("editForm").action = url;
-    document.getElementById("editDate").value = date;
-    document.getElementById("editTime").value = time;
-    document.getElementById("editReason").value = reason;
-    modal.style.display = "block";
+// Function to open the modal and fetch data dynamically
+function openModal(id, urlTemplate) {
+    var url = urlTemplate.replace('0', id); // Replace the placeholder with the actual appointment ID
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch appointment data');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var editForm = document.getElementById('editForm');
+            var editDate = document.getElementById('editDate');
+            var editTime = document.getElementById('editTime');
+            var editReason = document.getElementById('editReason');
+
+            if (editForm && editDate && editTime && editReason) {
+                editForm.action = url;
+                editDate.value = data.date;  // Populate date
+                editTime.value = data.time;  // Populate time
+                editReason.value = data.reason;  // Populate reason
+            }
+
+            modal.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error fetching appointment data:', error);
+            alert('Failed to load appointment details. Please try again.');
+        });
 }
 
 // Function to close the modal
@@ -31,7 +53,7 @@ function closeModal() {
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
@@ -45,24 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
         input.setAttribute('min', today);
     });
 });
-
-// Prepopulate Edit Appointment Modal
-function openModal(id, date, time, reason, urlTemplate) {
-    var url = urlTemplate.replace('0', id);  // Replace placeholder with actual appointment ID
-    var editForm = document.getElementById('editForm');
-    var editDate = document.getElementById('editDate');
-    var editTime = document.getElementById('editTime');
-    var editReason = document.getElementById('editReason');
-
-    if (editForm && editDate && editTime && editReason) {
-        editForm.action = url;
-        editDate.value = date;
-        editTime.value = time;
-        editReason.value = reason;
-    }
-
-    modal.style.display = 'block';
-}
 
 // Navigation menu toggle
 document.addEventListener('DOMContentLoaded', function () {
