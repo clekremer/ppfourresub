@@ -359,3 +359,11 @@ footer {
         color: #333;
     }
 }
+
+#editModal .modal-content {
+    width: 100%;
+}
+
+#editForm {
+    width: 90%;
+}
