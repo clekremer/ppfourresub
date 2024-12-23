@@ -113,34 +113,30 @@ form button:hover,
 
 /* Edit and Cancel Button Consistent Width */
 button.edit-btn,
-button.cancel-btn,
-form button.edit-btn,
 form button.cancel-btn {
-    width: 120px; /* Fixed width for Edit and Cancel buttons */
+    width: 120px; /* Fixed width for both Edit and Cancel buttons */
     text-align: center;
     margin: 5px; /* Ensure spacing between buttons */
     display: inline-block; /* Prevent flexbox stretching */
-    flex: none; /* Ensure no flex growth */
-    box-sizing: border-box; /* Ensure width includes padding and border */
+    flex: none; /* Prevent any unintended flexbox influence */
+    box-sizing: border-box; /* Include padding and borders in width */
 }
 
-/* Override default submit button behavior */
+/* Specific Submit Button Override */
 form button[type="submit"] {
-    width: 120px !important;
-    display: inline-block;
+    width: 120px !important; /* Explicit width */
+    display: inline-block; /* Ensure consistent display */
+    text-align: center;
+    flex: none;
 }
 
-/* Form Styles */
+/* Form Adjustments */
 form {
     display: flex;
-    flex-direction: column;
-    width: 35%;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    align-items: flex-start;
+    flex-direction: row; /* Align buttons in a row */
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Add spacing between form elements */
+    flex-wrap: wrap; /* Ensure proper alignment on smaller screens */
 }
 
 form input,
@@ -155,7 +151,6 @@ form textarea {
 }
 
 form button {
-    width: 50%;
     margin-top: 10px;
 }
 
@@ -191,7 +186,7 @@ footer {
 }
 
 #social-networks i:hover {
-    color: #007bff;
+    color: #7acacc;
 }
 
 /* Accordion */
