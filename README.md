@@ -343,3 +343,5 @@ The was deployed on Heroku by the following steps:
 
 ## Acknowledgments
 
+Special thanks to Kristyna for all your support, kindness, availability and positive attitude!
+
