@@ -363,6 +363,9 @@ footer {
         padding: 10px;
         color: #333;
     }
+    #appointment_form {
+        width: 90%;
+    }
 }
 
 #editModal .modal-content {
@@ -373,9 +376,6 @@ footer {
     width: 80%;
 }
 
-#appointment_form {
-    width: 90%;
-}
 
 /* Ensure it uses 35% for larger screens */
 
@@ -383,8 +383,8 @@ footer {
     #editModal .modal-content {
         width: 35% !important; /* Ensure it uses 35% for larger screens */
     }
+    #appointment_form {
+        width: 35%;
+    }
 }
 
-#appointment_form {
-    width: 35%;
-}
