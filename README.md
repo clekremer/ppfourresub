@@ -1,8 +1,12 @@
 # Osteopathy Patient Booking System
 
+![Patient booking responsive screenshot](docs/readme_images/)
+
 The Osteopathy Patient Booking System is web app for rquesting and scheduling Osteopathy appointment between Doctor and Patient. 
 
 The live app can be accessed here - [Osteopathy Patient Booking System](https://pp4patbook-9453e2a559a6.herokuapp.com/)
+
+Admin access: [Patient Booking Admin](https://pp4patbook-9453e2a559a6.herokuapp.com/admin/login/?next=/admin/)
 
 ## Table of Contents
 
@@ -97,9 +101,7 @@ The page has a very simple design. Focus lies on the functionality and providing
 
 #### Colour 
 
-#### Imagery
-
-#### Fonts
+The colours should have a clear expression. A colour should appear repeatedly. For example the blue from the buttons, appears in the menus and login status. 
 
 #### Wireframes
 
@@ -133,7 +135,7 @@ Wireframes were created with Balsamiq.
 
 Github projects was used to manage agile development. The project be found here: [Github project](https://github.com/users/clekremer/projects/6)
 
-Epics from User Eperience chapter were used as Milestones. For User Storie I created a template as Github Issue. User stories were linked with it´s parent Epic. In User stories acceptance criteria are defined, which needed to be fulfilled in order to complete the user story. 
+Epics from User Eperience chapter were used as Milestones. For User Storie I created a template as Github Issue. User stories were linked with it´s parent Epic. In User stories acceptance criteria are defined, which needed to be fulfilled in order to complete the user story. Labels were used to define priority of implementation (must have, nice to have, not implemented). Iterations were used to work in a sprint based approach. Bugs and New Features were indicated as GitHub issues. 
 
 
 ## Data Model
@@ -178,29 +180,33 @@ CSRF tokens were used for all forms on this site.
 
 Database url and secret key were added in the .env file to ensure  the database security. 
 
-### Custom error pages
-
 ## Features
 
 ### Header / Navigation Bar 
+
  - the navigation bar is visible on every page 
  - Users which are not logged in will see this view:
+ ![Header / Nav Bar](/docs/readme_images/header_logout.PNG)
+
  - In this case they have the possibility to log in or the register as a new patient or doctor 
+
  - Users which are logged in will see this view:
+ 
+![Header / Nav Bar](/docs/readme_images/header.PNG)
  - A User who is registered as Patient has the possibility to access the Patient Dashboard and Book Appointments form
  - A User who is registered as doctor has the possibility to access the Doctor Dashboard 
  - A User who is registered as doctor and as patient has access to both dashboards
 
-
-The navigation bar is present at the top of every page and includes all links to the various other pages.
-The My Account navigation link is a drop down menu which includes the Sign up and Log in links.
-When the user has logged in, the My Account drop down menu changes to display the user's name and a profile icon.
+ - A hover effect indicates which nav item is currently selected
+ - A login status indicates if a user is currently logged in or not
 
 ### Footer
+![Footer](/docs/readme_images/footer.PNG)
  - In the footer there are links to Facebook, Instagram, Twitter and Youtube
  - By clicking on the links in the footer the user is redirected to the respective social media page in a separate tab 
 
 ### Home Page
+![Home](/docs/readme_images/home.PNG)
  - On the Home page basic information about site is presented 
  - On the intro section information about the osteopathy practice is presented 
  - On the treatment section information about osteopathic treamtent is presented 
@@ -208,33 +214,43 @@ When the user has logged in, the My Account drop down menu changes to display th
  - Another link is for users who User who not yet registered as patient. In this cases they got redirected to the registration page
 
 ### Register Patient Page
+![Register Patient](/docs/readme_images/Register.PNG)
  - The Register Patient Page is a simple form to enter patient details
  - By clicking register button he is registered as patient
  - Afterwards he has access to patient dashboard and the book appointments form 
 
 ### Book Appointment
+![Book Appointment](/docs/readme_images/book_appointment.PNG)
  - On Book Appointment page a Patient can use the book appointment form the request an appointment
  - The patient can select the doctor and enter the favorable time and date and the reason for his visit
  - After clicking on "book" button an appointment request is created an submitted to the selected doctor
 
 ### Register Doctor
  - By clicking on Register Doctor the user is getting redirected to admin login page
- - Only admin user have the permission to register a new doctor 
- - After entering the doctor credentials 
- - There are two possibilities to register a new doctor: 1. Register New User as Doctor 2. Register Existing User as Doctor 
+ - Only admin user have the permission to register a new doctor:
+ ![Admin login](/docs/readme_images/admin_login.PNG)
+ - After entering the admin credentials 
+ - There are two possibilities to register a new doctor: 1. Register New User as Doctor 2. Register Existing User as Doctor:
+ ![Register Doctor step 1](/docs/readme_images/register_doctor_step1.PNG)
+ ![Register Doctor step 2](/docs/readme_images/register_doctor_step2.PNG)
  - By clicking 1. Register New User as Doctor a form is displayed to enter all data for a new user and the speciality of the doctor
+ ![Register Doctor New User](/docs/readme_images/register_new_user_doctor.PNG)
  - By clicking 2. Register Existing User as Doctor a list of existing user is displayed and a field to enter the speciality 
+ ![Register Doctor New User](/docs/readme_images/register_existing_user_doctor.PNG)
 
 ### Patient Dashboard
+![Patient Dashboard](/docs/readme_images/patient_dashbaord.PNG)
 - On Patient Dashbaord the patient details are displayed
 - Furthermore the Patient can view his appointment requests and his approved, rejected and canceled appointments 
 - Existing appointment requests and appointments can be managed here 
 
 ### Doctor Dashboard
+![Doctor Dashboard](/docs/readme_images/doctor_dashbaord.PNG)
 - On Doctor Dashbaord the doctor can view, approve or reject appointment requests 
 - Existing appointments can be canceled here as well 
 
 ### Edit Appointment
+![Edit Appointments](/docs/readme_images/edit_appointment.PNG)
 - As a Patient I can edit existing appointments and appointment request so that I can change date, time and reason for my appointments
 - On patient dashboard patients can view their appointments and click on edit button in order to modify date, time and reason
 - After clicking save changes button the appointments are moved in pending status again, so that a doctor has to answer on them again
@@ -242,6 +258,7 @@ When the user has logged in, the My Account drop down menu changes to display th
 
 ### Cancel Appointment
 #### Cancel Appointment as a Patient
+![Cancel Appointments](/docs/readme_images/cancel_appointment_patient.PNG)
  - As a Patient I can cancel 'appointment requests' and 'approved appointments', so that I cancel appointments when I don´t need them anymore
  - On patient dashboard a patient can view approved and pending appointments
  - By clicking on cancel button he can cancel them
@@ -249,6 +266,7 @@ When the user has logged in, the My Account drop down menu changes to display th
  - cancelled appointments are move to the cancelled appointments table
 
 #### Cancel appointment as a doctor
+![Cancel Appointments](/docs/readme_images/cancel_appointment_doctor.PNG)
  - As a Doctor I can cancel an already answered appointment request when I cannot attend them.
  - On doctor dashboard a doctor can view answered appointment requests
  - By clicking on cancel button he can cancel them
@@ -256,12 +274,14 @@ When the user has logged in, the My Account drop down menu changes to display th
  - Cancelled appointments are move to the cancelled appointments table on patient dashboard
 
 ### Approve Appointment
+![Approve Appointments](/docs/readme_images/approve_appointment.PNG)
  - As a Doctor I can approve appointment request so that I can confirm an appointment to a patient.
  - On doctor dashbaord a doctor can view pending appointment requestsb by selecting "approve" status and clicking on update button he can approve an appointment requests
  - A notification appears that the appointment was approved successfully
  - An updated appointment request is move into the answered appointment request list
 
 ### Reject Appointment
+![Reject Appointments](/docs/readme_images/reject_appointment.PNG)
  - As a Doctor I can reject appointment request so that I can tell the patient that he needs to suggest another date and time.
  - On doctor dashbaord a doctor can view pending appointment requests by selecting "reject" status and clicking on update button he can reject an appointment request
  - A notification appears that the appointment was rejected successfully

@@ -159,7 +159,7 @@ STATICFILES_DIRS = [
 
 
 # Directory for collected static files during deployment
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
