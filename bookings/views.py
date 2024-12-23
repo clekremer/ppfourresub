@@ -294,3 +294,19 @@ def patient_cancel_appointment(request, appointment_id):
         messages.error(request, 'Only pending or approved appointments can be canceled.')
     
     return redirect('patient_detail')
+
+@login_required
+def get_appointment_details(request, appointment_id):
+    try:
+        appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
+        data = {
+            "id": appointment.id,
+            "date": appointment.date.strftime('%Y-%m-%d') if appointment.date else '',  # Ensures date is ISO formatted
+            "time": appointment.time.strftime('%H:%M') if appointment.time else '',    # Ensures time is properly formatted
+            "reason": appointment.reason,
+        }
+        return JsonResponse(data)
+    except ObjectDoesNotExist:
+        return JsonResponse({"error": "Appointment not found"}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
