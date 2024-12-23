@@ -61,14 +61,14 @@
                     <strong>Time:</strong> {{ appointment.time }}<br>
                     <strong>Reason:</strong> {{ appointment.reason }}<br>
                     <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                    <form method="post" action="">
+                    <form id=doctor_update_form method="post" action="">
                         {% csrf_token %}
                         <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
-                        <select name="status" required>
+                        <select id=doctor_status name="status" required>
                             <option value="approved">Approve</option>
                             <option value="rejected">Reject</option>
                         </select>
-                        <button type="submit">Update</button>
+                        <button id=doctor_update type="submit">Update</button>
                     </form>
                 </li>
             {% endfor %}
@@ -87,11 +87,11 @@
                     <strong>Time:</strong> {{ appointment.time }}<br>
                     <strong>Reason:</strong> {{ appointment.reason }}<br>
                     <strong>Status:</strong> {{ appointment.get_status_display }}<br>
-                    <form method="post" action="">
+                    <form id=doctor_cancel_form method="post" action="">
                         {% csrf_token %}
                         <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
                         <input type="hidden" name="status" value="canceled">
-                        <button type="submit">Cancel</button>
+                        <button id=doctor_cancel type="submit">Cancel</button>
                     </form>
                 </li>
             {% endfor %}

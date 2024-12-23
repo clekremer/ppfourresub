@@ -142,6 +142,11 @@ form button[type="submit"] {
     display: inline-block;
 }
 
+#doctor_cancel_form, 
+#doctor_update_form {
+    padding: 0%;
+}  
+
 /* Form Styles */
 form {
     display: flex;
