@@ -244,11 +244,20 @@ No errors were found by testing the CSS file with [W3C CSS Validator](https://ji
 
 No errors were found by testen the js file with [Jshint](https://jshint.com/) 
 
-![JavaScript Test](docs/readme_images/js_validator.PNG)
+![JavaScript Validation Test](docs/readme_images/js_validator.PNG)
 
 ### Python
 
-No errors were found by testing all python files with [Pep8](http://pep8online.com/).
+No errors were found by testing all python files with [Pep8](https://pep8ci.herokuapp.com/).
+
+![Python Validation Test forms.py](docs/readme_images/forms_py.PNG)
+
+![Python Validation Test models.py](docs/readme_images/models_py.PNG)
+
+![Python Validation Test urls.py](docs/readme_images/urls_py.PNG)
+
+![Python Validation Test views.py](docs/readme_images/views_py.PNG)
+
 
 ### Lighthouse
 
