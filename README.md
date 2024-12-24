@@ -299,7 +299,9 @@ The was deployed on Heroku by the following steps:
 
 ### Setting tab:
 - add DATABASE_URL in the Config Vars 
-- add DISABLE_COLLECTSTATIC = 1 in the Config Vars 
+- add DISABLE_COLLECTSTATIC = 1 in the Config Vars
+- add SECRET_KEY to config vars
+- add debug false to config vars 
 
 ### Prepare the .env and settings.py file:
 - In GitPod workspace, create an .env file 
@@ -335,10 +337,9 @@ The was deployed on Heroku by the following steps:
 - [GitHub](https://github.com/) Repository, version control and agile tool.
 - [Google Fonts](https://fonts.google.com/) Fonts
 - [W3C](https://www.w3.org/) Validation of HTML & CSS
-- [PEP8 Online](http://pep8online.com/) Validation of Python code
+- [PEP8 CI](https://pep8ci.herokuapp.com/) Validation of Python code
 - [Jshint](https://jshint.com/) Validation of javascript
 - [Stack Overflow](https://stackoverflow.com/)
-- [Update View](https://pytutorial.com/django-updateview-example)
 
 
 ## Acknowledgments
