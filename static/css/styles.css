@@ -121,7 +121,7 @@ button.edit-btn,
 button.cancel-btn,
 form button.edit-btn,
 form button.cancel-btn {
-    width: 120px; /* Fixed width for Edit and Cancel buttons */
+    width: 120px; 
     text-align: center;
     margin: 5px; /* Uniform spacing between buttons */
     display: inline-block; /* Prevent flexbox stretching */
@@ -147,6 +147,7 @@ form button[type="submit"] {
     display: inline-block;
 }
 
+/* Specific form styles */
 #doctor_cancel_form, 
 #doctor_update_form {
     padding: 0%;
@@ -214,6 +215,7 @@ form button {
     margin-top: 10px;
 }
 
+/* Styles for appointment lists */
 #ul_doctor,
 #ul_patient  {
     display: flex;
@@ -342,6 +344,7 @@ footer {
     display: none;
 }
 
+/* Media queries for smaller screens */
 
 @media (max-width: 768px) {
     .nav-menu {
@@ -381,7 +384,7 @@ footer {
 }
 
 
-/* Ensure it uses 35% for larger screens */
+/* Media queries for larger screens */
 
 @media (min-width: 768px) {
     #editModal .modal-content {
