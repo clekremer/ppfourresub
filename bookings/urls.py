@@ -17,12 +17,44 @@ urlpatterns = [
     path('register_patient/', views.register_patient, name='register_patient'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('register_doctor_step1/', views.register_doctor_step1, name='register_doctor_step1'),
-    path('register_doctor_step2/', views.register_doctor_step2, name='register_doctor_step2'),
-    path('register_doctor_new_user/', views.register_doctor_new_user, name='register_doctor_new_user'),
-    path('register_doctor_existing_user/', views.register_doctor_existing_user, name='register_doctor_existing_user'),
-    path('doctor_dashboard/', views.doctor_dashboard, name='doctor_dashboard'),
-    path('edit_appointment/<int:appointment_id>/', views.edit_appointment, name='edit_appointment'),
-    path('cancel_appointment/<int:appointment_id>/', views.patient_cancel_appointment, name='patient_cancel_appointment'),
-    path('bookings/appointment/<int:appointment_id>/details/', views.get_appointment_details, name='get_appointment_details'),
+    path(
+        'register_doctor_step1/',
+        views.register_doctor_step1,
+        name='register_doctor_step1'
+    ),
+    path(
+        'register_doctor_step2/',
+        views.register_doctor_step2,
+        name='register_doctor_step2'
+    ),
+    path(
+        'register_doctor_new_user/',
+        views.register_doctor_new_user,
+        name='register_doctor_new_user'
+    ),
+    path(
+        'register_doctor_existing_user/',
+        views.register_doctor_existing_user,
+        name='register_doctor_existing_user'
+    ),
+    path(
+        'doctor_dashboard/',
+        views.doctor_dashboard,
+        name='doctor_dashboard'
+    ),
+    path(
+        'edit_appointment/<int:appointment_id>/',
+        views.edit_appointment,
+        name='edit_appointment'
+    ),
+    path(
+        'cancel_appointment/<int:appointment_id>/',
+        views.patient_cancel_appointment,
+        name='patient_cancel_appointment'
+    ),
+    path(
+        'bookings/appointment/<int:appointment_id>/details/',
+        views.get_appointment_details,
+        name='get_appointment_details'
+    ),
 ]
