@@ -19,9 +19,9 @@ import environ
 # Define BASE_DIR first
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Initialize environ
+# Initialize environ and Explicitly load .env file
 env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))  # Explicitly load .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -81,7 +81,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'templates',  # Directory in your project root
-            BASE_DIR / 'bookings' / 'templates',  # Directory inside the bookings app
+            BASE_DIR / 'bookings' / 'templates',  # Directory in bookings app
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -106,12 +106,11 @@ WSGI_APPLICATION = 'patient_booking_system.wsgi.application'
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+# }
 
 DATABASES = {
     'default': dj_database_url.parse(env('DATABASE_URL'))
 }
-
 
 
 # Password validation
