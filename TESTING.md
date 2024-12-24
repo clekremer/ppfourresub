@@ -442,4 +442,9 @@ Responsive design was test with chrome dev tools for desktop, mobile and tablet 
 
 ## Bugs
 
+The following bugs were indentified and not solved yet (github issues were created):
+ - Answered appointment requests in cancelled status, which were cancelled by patients should not show a cancel button at doctor dashbaord
+ - after doctor registration flow the admin should get logged out and doctor user should get logged in
+ - Register existing User as doctor: Select List should show only user which are not Doctors yet or validation control is missing if they are already doctors
+ - admin login UI is broken in debug: false mode
 
