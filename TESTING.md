@@ -273,6 +273,15 @@ The Website was tested with Chrome, Firefox and Edge browsers. No issues were fo
 
 ## Device Testing / Responsivenes
 
+Responsive design was test with chrome dev tools for desktop, mobile and tablet screens. No issues were found:
+
+![Responsive desktop](docs/readme_images/Responsive_Desktop.PNG)
+
+![Responsive mobiles](docs/readme_images/Responsive_mobile.PNG)
+
+![Responsive tablet](docs/readme_images/responsive_tablet.PNG)
+
+
 ## Manual Testing
 
 ### Site Navigation
