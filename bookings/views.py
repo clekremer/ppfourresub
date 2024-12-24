@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import Group, User
-from .forms import AppointmentForm, UserForm, PatientForm, DoctorRegistrationForm, EditAppointmentForm
+from .forms import AppointmentForm, UserForm, PatientForm
+from .forms import DoctorRegistrationForm, EditAppointmentForm
 from .models import Appointment, Patient, Doctor
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -13,16 +14,23 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from datetime import date
 
+# Get the custom user model
 User = get_user_model()
 
+
+# Utility function to restrict access to superusers
 def redirect_to_admin_login_if_not_superuser(request):
     if not request.user.is_superuser:
         return redirect(f'{settings.ADMIN_URL}?next={request.path}')
     return None
 
+
+# Home page view
 def index(request):
     return render(request, 'index.html')
 
+
+# Book an appointment (Patient only)
 @login_required
 def book_appointment(request):
     if request.method == 'POST':
@@ -30,25 +38,37 @@ def book_appointment(request):
         if form.is_valid():
             appointment = form.save(commit=False)
             if appointment.date < date.today():
-                messages.error(request, 'The appointment date cannot be in the past.')
+                messages.error(request, 'The date cannot be in the past.')
                 return redirect('book_appointment')
             appointment.patient = request.user.patient
             appointment.save()
             messages.success(request, 'Appointment booked successfully.')
             return redirect('patient_detail')
         else:
-            messages.error(request, 'Failed to book appointment. Please correct the errors.')
+            messages.error(
+                request,
+                'Failed to book appointment. Please correct the errors.'
+            )
     else:
         form = AppointmentForm()
     return render(request, 'bookings/book_appointment.html', {'form': form})
 
+
+# List all appointments (General view)
 def appointment_list(request):
     appointments = Appointment.objects.all()
-    return render(request, 'bookings/appointment_list.html', {'appointments': appointments})
+    return render(
+        request,
+        'bookings/appointment_list.html', {'appointments': appointments}
+    )
 
+
+# Check if a user is staff
 def is_staff(user):
     return user.is_staff
 
+
+# Doctor registration step 1
 def register_doctor_step1(request):
     redirect_response = redirect_to_admin_login_if_not_superuser(request)
     if redirect_response:
@@ -58,6 +78,8 @@ def register_doctor_step1(request):
         return redirect('register_doctor_step2')
     return render(request, 'bookings/register_doctor_step1.html')
 
+
+# Doctor registration step 2
 def register_doctor_step2(request):
     redirect_response = redirect_to_admin_login_if_not_superuser(request)
     if redirect_response:
@@ -70,6 +92,8 @@ def register_doctor_step2(request):
             return redirect('register_doctor_existing_user')
     return render(request, 'bookings/register_doctor_step2.html')
 
+
+# Register a new doctor user
 def register_doctor_new_user(request):
     redirect_response = redirect_to_admin_login_if_not_superuser(request)
     if redirect_response:
@@ -96,8 +120,14 @@ def register_doctor_new_user(request):
         user_form = UserForm()
         doctor_form = DoctorRegistrationForm()
 
-    return render(request, 'bookings/register_doctor_new_user.html', {'user_form': user_form, 'doctor_form': doctor_form})
+    return render(
+        request,
+        'bookings/register_doctor_new_user.html',
+        {'user_form': user_form, 'doctor_form': doctor_form}
+    )
 
+
+# Register an existing user as a doctor
 def register_doctor_existing_user(request):
     redirect_response = redirect_to_admin_login_if_not_superuser(request)
     if redirect_response:
@@ -106,7 +136,7 @@ def register_doctor_existing_user(request):
     if request.method == 'POST':
         user_id = request.POST.get('user')
         doctor_form = DoctorRegistrationForm(request.POST)
-        
+
         if doctor_form.is_valid():
             user = User.objects.get(id=user_id)
 
@@ -117,20 +147,36 @@ def register_doctor_existing_user(request):
             doctor.user = user
             doctor.save()
 
-            messages.success(request, 'Existing user registered as doctor successfully.')
+            messages.success(
+                request,
+                'Existing user registered as doctor successfully.'
+            )
             return redirect('index')
     else:
         users = User.objects.all()
         doctor_form = DoctorRegistrationForm()
 
-    return render(request, 'bookings/register_doctor_existing_user.html', {'users': users, 'doctor_form': doctor_form})
+    return render(
+        request,
+        'bookings/register_doctor_existing_user.html',
+        {'users': users, 'doctor_form': doctor_form}
+    )
 
+
+# Doctor dashboard view
 @login_required
 def doctor_dashboard(request):
     try:
         doctor = request.user.doctor
-        pending_appointments = Appointment.objects.filter(doctor=doctor, status='pending')
-        answered_appointments = Appointment.objects.filter(doctor=doctor).exclude(status='pending')
+        pending_appointments = Appointment.objects.filter(
+            doctor=doctor,
+            status='pending'
+        )
+        answered_appointments = (
+            Appointment.objects
+            .filter(doctor=doctor)
+            .exclude(status='pending')
+        )
     except ObjectDoesNotExist:
         doctor = None
         pending_appointments = []
@@ -140,15 +186,25 @@ def doctor_dashboard(request):
         appointment_id = request.POST.get('appointment_id')
         status = request.POST.get('status')
 
-        appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
+        appointment = get_object_or_404(
+            Appointment,
+            id=appointment_id,
+            doctor=doctor
+        )
 
         if status in ['approved', 'rejected']:
             if appointment.status == 'pending':
                 appointment.status = status
                 appointment.save()
-                messages.success(request, f'Appointment {status} successfully.')
+                messages.success(
+                    request,
+                    f'Appointment {status} successfully.'
+                )
             else:
-                messages.error(request, 'You can only approve or reject pending appointments.')
+                messages.error(
+                    request,
+                    'You can only approve or reject pending appointments.'
+                )
 
         elif status == 'canceled':
             if appointment.status in ['approved', 'rejected']:
@@ -167,6 +223,8 @@ def doctor_dashboard(request):
         'answered_appointments': answered_appointments,
     })
 
+
+# Register a new patient
 def register_patient(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
@@ -175,31 +233,53 @@ def register_patient(request):
             user = user_form.save(commit=False)
             user.set_password(user_form.cleaned_data['password'])
             user.save()
-            
+
             patient = patient_form.save(commit=False)
             patient.user = user
             patient.save()
 
             # Authenticate and log the user in after registration
-            authenticated_user = authenticate(username=user.username, password=user_form.cleaned_data['password'])
+            authenticated_user = authenticate(
+                username=user.username,
+                password=user_form.cleaned_data['password'])
             if authenticated_user is not None:
                 login(request, authenticated_user)
-                messages.success(request, 'Registration successful. You are now logged in.')
+                messages.success(
+                    request,
+                    'Registration successful. You are now logged in.'
+                )
                 return redirect('patient_detail')
             else:
-                messages.error(request, 'There was an issue logging you in after registration. Please try logging in manually.')
+                messages.error(
+                    request,
+                    'There was an issue logging you in after registration.'
+                    'Please try logging in manually.'
+                )
                 return redirect('login')
         else:
-            messages.error(request, 'Failed to register. Please correct the errors.')
+            messages.error(
+                request,
+                'Failed to register. Please correct the errors.'
+            )
     else:
         user_form = UserForm()
         patient_form = PatientForm()
 
-    return render(request, 'bookings/register_patient.html', {'user_form': user_form, 'patient_form': patient_form})
+    return render(
+        request,
+        'bookings/register_patient.html',
+        {'user_form': user_form, 'patient_form': patient_form}
+    )
 
+
+# Edit an appointment
 @login_required
 def edit_appointment(request, appointment_id):
-    appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
+    appointment = get_object_or_404(
+        Appointment,
+        id=appointment_id,
+        patient=request.user.patient
+    )
 
     if appointment.status == 'canceled':
         messages.error(request, 'Canceled appointments cannot be edited.')
@@ -209,8 +289,14 @@ def edit_appointment(request, appointment_id):
         form = EditAppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
             if form.cleaned_data['date'] < date.today():
-                messages.error(request, 'The appointment date cannot be in the past.')
-                return redirect('edit_appointment', appointment_id=appointment_id)
+                messages.error(
+                    request,
+                    'The appointment date cannot be in the past.'
+                )
+                return redirect(
+                    'edit_appointment',
+                    appointment_id=appointment_id
+                )
             appointment = form.save(commit=False)
             appointment.status = 'pending'
             appointment.save()
@@ -225,19 +311,27 @@ def edit_appointment(request, appointment_id):
     })
 
 
+# Ensure the user is logged in to access patient dashboard
 @login_required
 def patient_detail(request):
     try:
         patient = Patient.objects.get(user=request.user)
-        pending_appointments = Appointment.objects.filter(patient=patient, status='pending')
-        other_appointments = Appointment.objects.filter(patient=patient).exclude(status='pending')
-        
+        pending_appointments = Appointment.objects.filter(
+            patient=patient,
+            status='pending'
+        )
+        other_appointments = (
+            Appointment.objects
+            .filter(patient=patient)
+            .exclude(status='pending')
+        )
+
         appointments_by_status = {}
         for appointment in other_appointments:
             if appointment.status not in appointments_by_status:
                 appointments_by_status[appointment.status] = []
             appointments_by_status[appointment.status].append(appointment)
-        
+
         return render(request, 'bookings/patient_detail.html', {
             'patient': patient,
             'pending_appointments': pending_appointments,
@@ -247,11 +341,19 @@ def patient_detail(request):
         messages.error(request, "Patient details not found.")
         return redirect('index')
 
+
+# Display a list of all registered patients
 @login_required
 def patient_list(request):
     patients = Patient.objects.all()
-    return render(request, 'bookings/patient_list.html', {'patients': patients})
+    return render(
+        request,
+        'bookings/patient_list.html',
+        {'patients': patients}
+    )
 
+
+# Handle user login functionality
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -276,33 +378,56 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'bookings/login.html', {'form': form})
 
+
+# Handle user logout functionality
 @login_required
 def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect('login')
 
+
+# Cancel an appointment
 @login_required
 def patient_cancel_appointment(request, appointment_id):
-    appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
-    
+    appointment = get_object_or_404(
+        Appointment,
+        id=appointment_id,
+        patient=request.user.patient
+    )
+
     if appointment.status in ['pending', 'approved']:
         appointment.status = 'canceled'
         appointment.save()
         messages.success(request, 'Appointment canceled successfully.')
     else:
-        messages.error(request, 'Only pending or approved appointments can be canceled.')
-    
+        messages.error(
+            request,
+            'Only pending or approved appointments can be canceled.'
+        )
+
     return redirect('patient_detail')
 
+
+# Fetch details of a specific appointment as JSON
 @login_required
 def get_appointment_details(request, appointment_id):
     try:
-        appointment = get_object_or_404(Appointment, id=appointment_id, patient=request.user.patient)
+        appointment = get_object_or_404(
+            Appointment,
+            id=appointment_id,
+            patient=request.user.patient
+        )
         data = {
             "id": appointment.id,
-            "date": appointment.date.strftime('%Y-%m-%d') if appointment.date else '',  # Ensures date is ISO formatted
-            "time": appointment.time.strftime('%H:%M') if appointment.time else '',    # Ensures time is properly formatted
+            "date": (
+                appointment.date.strftime('%Y-%m-%d')
+                if appointment.date else ''
+                ),  # Ensures date is ISO formatted
+            "time": (
+                appointment.time.strftime('%H:%M')
+                if appointment.time else ''
+                ),    # Ensures time is properly formatted
             "reason": appointment.reason,
         }
         return JsonResponse(data)
