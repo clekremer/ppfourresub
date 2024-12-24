@@ -4,6 +4,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Patient(models.Model):
     SEX_CHOICES = [
         ('M', 'Male'),
@@ -19,12 +20,14 @@ class Patient(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     specialty = models.CharField(max_length=100)
 
     def __str__(self):
         return self.user.username
+
 
 class Appointment(models.Model):
     STATUS_CHOICES = [
@@ -38,7 +41,14 @@ class Appointment(models.Model):
     date = models.DateField()
     time = models.TimeField()
     reason = models.TextField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
 
     def __str__(self):
-        return f"Appointment for {self.patient.user.username} with Dr. {self.doctor.user.username} on {self.date} at {self.time}"
+        return (
+            f"Appointment for {self.patient.user.username} with Dr. "
+            f"{self.doctor.user.username} on {self.date} at {self.time}"
+        )
