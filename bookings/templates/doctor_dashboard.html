@@ -40,7 +40,7 @@
             </ul>
         </nav>
     </header>
-    
+    <!-- Doctor Dashboard -->
     <h1>Doctor Dashboard</h1>
     
     {% if messages %}
@@ -50,7 +50,7 @@
             {% endfor %}
         </ul>
     {% endif %}
-    
+    <!-- List of pending appointment requests -->
     <h2>Pending Appointment Requests</h2>
     <ul id=ul_doctor>
         {% if pending_appointments %}
@@ -76,7 +76,7 @@
             <li>No pending appointments.</li>
         {% endif %}
     </ul>
-
+    <!-- List of answered appointment requests -->
     <h2>Answered Appointment Requests</h2>
     <ul id=ul_doctor>
         {% if answered_appointments %}
@@ -99,7 +99,7 @@
             <li>No answered appointments.</li>
         {% endif %}
     </ul>
-
+    <!-- Footer-->
     <footer>
         <ul id="social-networks">
             <li>
