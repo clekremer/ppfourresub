@@ -261,7 +261,15 @@ No errors were found by testing all python files with [Pep8](https://pep8ci.hero
 
 ### Lighthouse
 
+Patient booking system was tested with Chrome Lighthouse testing with the following results:
+
+![Lighthouse testing desktop](docs/readme_images/lighthouse_desktop.PNG)
+
+![Lighthouse testing mobile](docs/readme_images/lighthouse_mobile.PNG)
+
 ## Browser testing 
+
+The Website was tested with Chrome, Firefox and Edge browsers. No issues were found.
 
 ## Device Testing / Responsivenes
 
