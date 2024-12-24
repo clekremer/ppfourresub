@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from datetime import date
 
+
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
@@ -20,7 +21,7 @@ class AppointmentForm(forms.ModelForm):
     def clean_date(self):
         selected_date = self.cleaned_data['date']
         if selected_date < date.today():
-            raise ValidationError("The appointment date cannot be in the past.")
+            raise ValidationError("The date cannot be in the past.")
         return selected_date
 
 
@@ -37,7 +38,7 @@ class EditAppointmentForm(forms.ModelForm):
     def clean_date(self):
         selected_date = self.cleaned_data['date']
         if selected_date < date.today():
-            raise ValidationError("The appointment date cannot be in the past.")
+            raise ValidationError("The date cannot be in the past.")
         return selected_date
 
 
@@ -62,5 +63,7 @@ class DoctorRegistrationForm(forms.ModelForm):
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}))
